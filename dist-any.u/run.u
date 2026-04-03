@@ -1,0 +1,188 @@
+# Distribution for CommonsBase_Build
+
+## CommonsBase_Build.Apparatus@0.1.0
+
+We'll bundle a small CMake project.
+  % return unified.asset { name="HelloWorld", dir="hw" }
+  'asset'
+  '757'
+  { 'sha256:ea51b24392b28b2e3333005f6a1e69732a04e547e827a9cf0de38e4310423a33' }
+
+## CommonsBase_Build.CMake0.Bundle@3.25.3
+
+  $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-darwin_universal.zip -f ${RUNTIME}/a1
+  [pass] asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-darwin_universal.zip
+  $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_arm64.zip -f ${RUNTIME}/a2
+  [pass] asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-linux_arm64.zip
+  $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_x86_64.zip -f ${RUNTIME}/a3
+  [pass] asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-linux_x86_64.zip
+  $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_x86.zip -f ${RUNTIME}/a4
+  [pass] asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-linux_x86.zip
+  $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-x86_64.zip -f ${RUNTIME}/a5
+  [pass] asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-3.25.3-windows-x86_64.zip
+  $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-i386.zip -f ${RUNTIME}/a6
+  [pass] asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-3.25.3-windows-i386.zip
+  $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-arm64.zip -f ${RUNTIME}/a7
+  [pass] asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-3.25.3-windows-arm64.zip
+
+## CommonsBase_Build.CMake0.Build@3.25.3
+
+(UI rule) Generates a CMake build system in the build directory.
+
+### Configurations
+
+One of the following sets of options must be provided:
+
+-   installdir= src[]= out[]=
+-   installdir= src[]= outexe[]=
+-   installdir= mirrors[]= urlpath= out[]=
+-   installdir= mirrors[]= urlpath= outexe[]=
+
+### Options
+
+-  src[]: list of glob patterns for the local source directory
+-  mirrors[]: HTTP base urls to download the CMake source directory
+-  urlpath: path added to the mirrors so full URL is a ZIP file of the CMake source directory
+-  installdir: (required) the install directory to pass to `cmake --install ... --prefix INSTALL_DIRECTORY`
+-  generator: the cmake generator to use (defaults to "none" on Windows, "Ninja" on other OS-es).
+   The special value "none" removes the "-G GENERATOR" CMake option so CMake selects any
+     available compiler.
+-  sourcesubdir: subdirectory inside the asset or bundle that contains the CMakeLists.txt (defaults to root of asset or bundle)
+-  nstrip: levels of leading directories to nstrip while extract asset or bundle (defaults to 0)
+-  gargs[]: list of cmake generator arguments to pass to cmake executable.
+   The -S source directory is required.
+   The -B build directory will already be set.
+-  bargs[]: list of cmake build arguments to pass to cmake executable.
+-  iargs[]: list of cmake install arguments to pass to cmake executable.
+-  out[]: list of expected output files in the install directory
+-  outexe[]: list of expected executable files in the install directory. On Windows `.exe` is added automatically.
+   ie. outexe[]=bin/xyz is the equivalent of out[]=bin/xyz.exe on Windows and out[]=bin/xyz on Unix
+-  outrmexact[]: list of exact strictly relative paths (relative to build directory) to remove
+-  outrmglob[]: list of "fd" filename glob patterns for files in the build directory to remove after outrmexact[].
+   Remove every file type except directories; use outrmexact for directories for safety.
+-  exe[]: list of glob patterns for executables to set execute permissions (Unix) and locally codesign (macOS).
+
+-- COMPILERS
+--
+-- ::: Windows / Visual Studio
+-- The default generator is nothing on Windows. CMake will select any available compiler,
+-- which may be the latest Visual Studio if your build machine has Visual Studio installed.
+
+-- DESIGN QUESTIONS
+-- Q1: Why a rule instead of a simpler `get-object`?
+-- ANS1: Because dk0 objects are deterministic zip files that do not allow symlinks.
+-- Symlinks cause inconsistency across platforms so with deterministic objects
+-- the CMake.app code signature output by `get-object` would be invalid on macOS.
+--
+-- Q2: CMAKE_INSTALL_PREFIX?
+-- The CMAKE_INSTALL_PREFIX is set for CMake projects like google/or-tools that do not respect
+-- the prefix option in `cmake --install --prefix` (usually when the project sets CMAKE_INSTALL_PREFIX CACHE
+-- variable by default).
+--
+-- Q3: Hermeticity?
+-- In a <FUTURE> version, CMakeCache.txt can be checked in this rule to find out if all the CACHE variables are hermetic.
+--    Example: BAD: _Python3_EXECUTABLE:INTERNAL=/opt/homebrew/Frameworks/Python.framework/Versions/3.11/bin/python3.11
+--    Example: GOOD: generated_dir:INTERNAL=/Volumes/SSD/Source/dk/t/p/4472/e7lu/f/Release.Agnostic/b/_deps/googletest-build/googletest/generated
+
+### Examples
+
+  $ run CommonsBase_Build.CMake0.Build@3.25.3 installdir=${RUNTIME}/i/llama-cpp
+  >   'mirrors[]=https://github.com/ggml-org/llama.cpp/archive/refs/tags'
+  >   'urlpath=b7974.zip#be9d624603e39cd4edee5fa85e8812eb8e1393537c8e4e4629bc4bd016388053,29881192'
+  >   'nstrip=1'
+  >   'gargs[]=-DBUILD_SHARED_LIBS:BOOL=OFF' 'gargs[]=-DCMAKE_BUILD_TYPE=Release'
+  >   'bargs[]=--config' 'bargs[]=Release'
+  >   'iargs[]=--config' 'iargs[]=Release'
+  >   'exe[]=bin/*'
+  >   'outexe[]=bin/llama-quantize'
+  >   'outrmglob[]=test-*' 'outrmglob[]=*.py' 'outrmglob[]=llama-[a-p]*' 'outrmglob[]=llama-[r-z]*'
+  >   'outrmexact[]=include' 'outrmexact[]=lib'
+  [pass]
+
+## CommonsBase_Build.CMake0.F_Build@3.25.3
+
+(Free rule) Generates a CMake build directory, builds the CMake project and installs the CMake project in the output directory.
+
+### Configurations
+
+One of the following sets of options must be provided:
+
+-  bundlemodver=
+-  assetmodver= assetpath=
+
+### Options
+
+-  generator: the cmake generator to use (defaults to "none" on Windows, "Ninja" on other OS-es).
+   The special value "none" removes the "-G GENERATOR" CMake option so CMake selects any
+   available compiler.
+-  assetmodver: asset module@version of CMake source directory
+-  assetpath: path inside the [assetmodver] asset module to the CMake source directory
+-  overlayassetpath: path inside the [assetmodver] asset module that gets layered on top of the source
+-  bundlemodver: bundle module@version of CMake source directory; overlayassetpath ignored
+-  overlaybundlemodver: bundle module@version that gets layered on top of the source
+-  sourcesubdir: subdirectory inside the asset or bundle that contains the CMakeLists.txt (defaults to root of asset or bundle)
+-  nstrip: levels of leading directories to nstrip while extract asset or bundle (defaults to 0)
+-  gargs[]: list of cmake generator arguments to pass to cmake executable.
+   The -S source directory is required.
+   The -B build directory will already be set.
+-  bargs[]: list of cmake build arguments to pass to cmake executable.
+-  iargs[]: list of cmake install arguments to pass to cmake executable.
+-  out[]: list of expected output files in the install directory
+-  outexe[]: list of expected executable files in the install directory. On Windows `.exe` is added automatically.
+   ie. outexe[]=bin/xyz is the equivalent of out[]=bin/xyz.exe on Windows and out[]=bin/xyz on Unix
+-  outrmexact[]: list of exact strictly relative paths (relative to build directory) to remove
+-  outrmglob[]: list of "fd" filename glob patterns for files in the build directory to remove after outrmexact[].
+   Remove every file type except directories; use outrmexact for directories for safety.
+-  exe[]: list of glob patterns for executables to set execute permissions (Unix) and locally codesign (macOS).
+
+### Examples
+
+  $ post-object CommonsBase_Build.CMake0.F_Build@3.25.3 -d somewhere/
+  > generator=Ninja
+  > bundlemodver=CommonsBase_Build.Apparatus.HelloWorld@0.1.0
+  > 'iargs[]=-S' 'iargs[]=.' 'out[]=bin/cmake-generated.exe'
+  [error fc46fba5]: Could not run unified shell command.
+  
+      ╭──▶ dist-any.u/run.u:138.5-142.0
+      │
+  138 │╭┤   $ post-object CommonsBase_Build.CMake0.F_Build@3.25.3 -d somewhere/
+  139 ││    > generator=Ninja
+  140 ││    > bundlemodver=CommonsBase_Build.Apparatus.HelloWorld@0.1.0
+  141 ││    > 'iargs[]=-S' 'iargs[]=.' 'out[]=bin/cmake-generated.exe'
+  142 │├┤   [error fc46fba5]: Could not run unified shell command.
+      • │
+      • ╰╸ Could not run function successfully because the function exited with code 1.
+      •
+      │ Hint: Check the logs `t/p/536/quga/l/Release.Agnostic/stdout1.log`, `t/p/536/quga/l/Release.Agnostic/stderr1.log` and `t/p/536/quga/l/Release.Agnostic/command1.txt`.
+      │ Hint: Consider running the individual command using the command line: `dk0 --verbose post-object CommonsBase_B...`
+  ────╯
+  
+  [exit 1]
+
+which runs:
+
+- `get-asset <assetmodver> -p <assetpath> -d s [-or-] get-bundle <bundlemodver> -d s`
+- (if generator is "Ninja") `$(get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.<execution abi> -m ./ninja.exe -f : -e '*')`
+- `cmake -G <generator> -S s/<sourcesubdir> -B b`
+     -DCMAKE_INSTALL_PREFIX:FILEPATH=${SLOTABS.Release.Agnostic}
+     -DCMAKE_MAKE_PROGRAM:FILEPATH=<path to ninja.exe> (if generator is "Ninja")
+     <gargs>`
+- `cmake --build b <bargs>`
+- `cmake --install b --prefix ${SLOTABS.Release.Agnostic} <iargs>`
+
+## CommonsBase_Build.Ninja0@1.12.1
+
+  $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Ninja0-1.12.1.zip
+  [pass] object:o7s5p7woasm43fqwzc45l2o2ht57bwl2z2aehy2zjix7bnqf3x32a:CommonsBase_Build.Ninja0@1.12.1
+  $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Ninja0-1.12.1.zip
+  [pass] object:oarosxthtrgkstvvchonglc2p7aj3vp7pzygjfo77xynsbdw35gzq:CommonsBase_Build.Ninja0@1.12.1
+  $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Ninja0-1.12.1.zip
+  [pass] object:o3jk5lsvsix5tbyupm6tcm2eng4jmofier7jamc2oakzpz57hrbhq:CommonsBase_Build.Ninja0@1.12.1
+  $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Ninja0-1.12.1.zip
+  [pass] object:otuu72s7zfjqbynrqfrebtzmrt4aegp6mxhoxxngbhs32kot2nkoa:CommonsBase_Build.Ninja0@1.12.1
+  $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-Ninja0-1.12.1.zip
+  [pass] object:ouffxf4brvk527rrf5trkjby5dpn3pp6xt3gfojng5th6djp5xbmq:CommonsBase_Build.Ninja0@1.12.1
+  $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Ninja0-1.12.1.zip
+  [pass] object:okwlfh53frfg6kerogiq2genhsschyvqgjwcyawrgfw4tdy6rodta:CommonsBase_Build.Ninja0@1.12.1
+  $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Ninja0-1.12.1.zip
+  [pass] object:ofhgsaxo2r7rbwufyljjllz2vpwvicworoyafdf3dvoeqvx4mevua:CommonsBase_Build.Ninja0@1.12.1

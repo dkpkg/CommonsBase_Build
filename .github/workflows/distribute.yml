@@ -1,0 +1,60 @@
+on:
+  push:
+    tags:
+      - '2.5.*' # secrets are tied to version 2.5
+  workflow_dispatch: # allow manual triggering from GitHub page
+  schedule:
+    # run at 5:30 AM in the America/New_York timezone every Monday through Friday
+    - cron: '30 5 * * 1-5'
+      timezone: "America/New_York"
+
+jobs:
+  distribute:
+    permissions:
+      contents: write # for action-gh-release
+      id-token: write # for actions/attest-build-provenance
+      attestations: write # for actions/attest-build-provenance
+      #   required but does not work in `act`! bug: https://github.com/nektos/act/issues/6025
+      artifact-metadata: write # for actions/attest-build-provenance
+
+    # The secrets created by `dksrc/dk0 prepare-version --ci github VERSION`
+    # are tied to this environment only.
+    environment: dk-distribution
+
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - runs-on: windows-2022 # CommonsBase_Std requires Windows to use S7z
+            distscript: dist-win32.u
+
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - name: Harden Runner # Optional but recommended
+        uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
+        with: { egress-policy: audit }
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Distribute Modules
+        uses: diskuv/dk-distribute@v2
+        with:
+            pubkey: ${{ secrets.distribute_2_5_pubkey }}
+            seckey: ${{ secrets.distribute_2_5_seckey }}
+            options: -nosysinc
+            use-cache: true
+            distscript: ${{ matrix.distscript }}
+            experimental-dk-owner: ${{ github.repository_owner }}
+            #   Use MlFront HEAD when CI build is not from a tag
+            experimental-mlfront-ref: ${{ github.ref_type != 'tag' && 'HEAD' }}
+            #   Uncomment when testing MlFront
+            # experimental-mlfront-ref: HEAD
+
+      - name: Attest
+        id: attest
+        uses: actions/attest-build-provenance@v3
+        with: { subject-path: dk-dist/* }
+
+      - name: Release ${{ github.job }}
+        uses: softprops/action-gh-release@f38efdea4c5ffe13e9424b0aa2833bee28f1e34c # v2. Oct. 6, 2025
+        with: { files: dk-dist/* }

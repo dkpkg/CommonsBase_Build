@@ -1,0 +1,17 @@
+# "https://sanjulaganepola.github.io/github-local-actions-docs/usage/settings/"
+id="CommonsBase_Std@2.5.209902260544"
+dkversion="2.5"
+options="-nosysinc --cell 'dk0=${{ github.workspace }}'"
+distscript="dist-any.u"
+usecache="true"
+
+havedk0="true"
+dk0win32='Y:\source\dksdk-coder\_build\default\ext\MlFront\src\DkZero_Exec\Shell.exe'
+
+# these are randomly generated keys for act testing.
+pubkey="untrusted comment: public key 3c7305e8b159a1c4
+RWQ8cwXosVmhxA+wXF8IYR3vgtYt2yPFrxIXVfjdm+zoDBHesFuKJt2/
+"
+seckey="untrusted comment: private key 3c7305e8b159a1c4
+RWRCSwAAAADOoYBsN1lw3uOO1/E4qKi2LKbi3j+qTkA8cwXosVmhxDAHup2J1LtSHHiXBlRqIxJedJg2DF50tkI6uK1hWHpSD7BcXwhhHe+C1i3bI8WvEhdV+N2b7OgMEd6wW4om3b8=
+"
