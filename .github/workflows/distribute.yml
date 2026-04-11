@@ -27,7 +27,7 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Harden Runner # Optional but recommended
-        uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
+        uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
         with: { egress-policy: audit }
       - name: Checkout repository
         uses: actions/checkout@v6
