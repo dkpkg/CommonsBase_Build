@@ -47,7 +47,7 @@
 --    The special value "none" removes the "-G GENERATOR" CMake option so CMake selects any
 --    available compiler.
 --  assetmodver: asset module@version of CMake source directory
---  assetpath: path inside the [assetmodver] asset module to the CMake source directory
+--  assetpath: path inside the [assetmodver] asset module of the CMake source directory
 --  overlayassetpath: path inside the [assetmodver] asset module that gets layered on top of the source
 --  bundlemodver: bundle module@version of CMake source directory; overlayassetpath ignored
 --  overlaybundlemodver: bundle module@version that gets layered on top of the source

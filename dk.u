@@ -1,11 +1,11 @@
 ## workspace
 
-  %% import { type="github-l2", repo="diskuv/CommonsBase_Std", tag="2.5.202603312126"  }
+  %% import { type="github-l2", repo="diskuv/CommonsBase_Std" }
   'import'
   'github-l2'
   { {
-      'CommonsBase_Std', '2.5.202603312126', {
-        'blake2b-256:95cb1691789fbf977ab723978def76dfcc61d1e812fa81e39bc816e9f2ef44a9',
-        'sha256:19a8f4e5e3cf4b9fa5cedae246976e0a654d7a0c82af9a6e021ed16f3290b780',
-        'sha1:7488f602fdf5bf1a0df544c9214f7297ac305b33'
+      'CommonsBase_Std', '2.5.202604110006', {
+        'blake2b-256:27026bcfba1ad2cbc2d04fa1e7f52bf8a808937d82db35e96a48fc40a9d020b8',
+        'sha256:942f7a2bfaed5113b5010c248d43c4c4d4bb910010dc1f4a7a847062961faba3',
+        'sha1:b557d4d574014f9286bf47748e6ef1f10270efb6'
       } } }

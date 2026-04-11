@@ -8,3 +8,10 @@ target_sources(hello
   PRIVATE
     HelloWorld.cxx
 )
+
+include(GNUInstallDirs)
+
+install(
+  TARGETS hello
+  EXPORT TutorialTargets
+)
