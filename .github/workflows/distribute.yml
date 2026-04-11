@@ -3,10 +3,6 @@ on:
     tags:
       - '2.5.*' # secrets are tied to version 2.5
   workflow_dispatch: # allow manual triggering from GitHub page
-  schedule:
-    # run at 5:30 AM in the America/New_York timezone every Monday through Friday
-    - cron: '30 5 * * 1-5'
-      timezone: "America/New_York"
 
 jobs:
   distribute:
