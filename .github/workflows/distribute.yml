@@ -21,8 +21,8 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - runs-on: windows-2022 # CommonsBase_Std requires Windows to use S7z
-            distscript: dist-win32.u
+          - runs-on: ubuntu-24.04 # Linux is cheapest and quickest to boot in Github Actions
+            distscript: dist-any.u
 
     runs-on: ${{ matrix.runs-on }}
     steps:
