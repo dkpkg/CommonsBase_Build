@@ -96,7 +96,7 @@ One of the following sets of options must be provided:
   >   'exe[]=bin/*'
   >   'outexe[]=bin/llama-quantize'
   >   'outrmglob[]=test-*' 'outrmglob[]=*.py' 'outrmglob[]=llama-[a-p]*' 'outrmglob[]=llama-[r-z]*'
-  >   'outrmexact[]=include' 'outrmexact[]=lib'
+  >   'outrmexact[]=include' 'outrmexact[]=lib' 'outrmexact[]=lib64'
   [pass] (no-eol)
 
 ## CommonsBase_Build.CMake0.F_Build@3.25.3
@@ -145,7 +145,7 @@ One of the following sets of options must be provided:
   > bargs[]=--config bargs[]=Release
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
-  [pass] object:oo35zak6bjb5xfg6kapo2cdknnz3a2fbzjkvkobfnuikw6vlhzvca:OurCMake_F_Build.Xhmcju4uhjoh54b35k3iobgdz4q@1.0.0
+  [pass] object:oqgigsxg2mhkeijmvdv5sp6yhqeclbxxftd67juprkgrhaweob54q:OurCMake_F_Build.Xhmcju4uhjoh54b35k3iobgdz4q@1.0.0
 
 which runs:
 
