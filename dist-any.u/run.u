@@ -5,8 +5,8 @@
 We'll bundle a small CMake project.
   % unified.asset { name="HelloWorld", dir="hw" }
   'asset'
-  '803'
-  { 'sha256:d41faf54fb2aaf1be2f3ce3252e26c300e120b6c0c30900c023c7f39166259ae' }
+  '790'
+  { 'sha256:847c39531962e987ba69983babf15f244735f3d566d4fdcaa9a94c038484415d' }
 
 ## CommonsBase_Build.CMake0.Bundle@3.25.3
 
@@ -145,7 +145,7 @@ One of the following sets of options must be provided:
   > bargs[]=--config bargs[]=Release
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
-  [pass] object:oprjtet3ca3hpnwlo3jtq5atmcm25ch6k3gzeytlsvl2vvil5bqoq:OurCMake_F_Build.Xhmcju4uhjoh54b35k3iobgdz4q@1.0.0
+  [pass] object:oo35zak6bjb5xfg6kapo2cdknnz3a2fbzjkvkobfnuikw6vlhzvca:OurCMake_F_Build.Xhmcju4uhjoh54b35k3iobgdz4q@1.0.0
 
 which runs:
 

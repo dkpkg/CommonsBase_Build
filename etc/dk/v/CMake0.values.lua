@@ -389,8 +389,8 @@ function rules.F_Build(command, request)
         " -m ./ninja.exe -f ninja -e '*')"
 
     if request.execution.OSFamily == "macos" then
-      p.cmakeexe =
-      "$(get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-darwin_universal.zip -n 1 -d : -e 'CMake.app/Contents/bin/*')/CMake.app/Contents/bin/cmake"
+      p.cmakebin = "$(--path=absnative get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-darwin_universal.zip -n 1 -d : -e 'CMake.app/Contents/bin/*')/CMake.app/Contents/bin"
+      p.cmakeexe = p.cmakebin .. "/cmake"
       p.osfamily = "macos"
       return CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, p)
     elseif request.execution.OSFamily == "linux" then
@@ -404,8 +404,9 @@ function rules.F_Build(command, request)
       else
         error("unsupported ABIv3: " .. request.execution.ABIv3)
       end
-      p.cmakeexe = "$(get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-" ..
-          cmakeabi .. ".zip -n 1 -d : -e 'bin/*')/bin/cmake"
+      p.cmakebin = "$(--path=absnative get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-" ..
+          cmakeabi .. ".zip -n 1 -d : -e 'bin/*')/bin"
+      p.cmakeexe = p.cmakebin .. "/cmake"
       p.osfamily = "linux"
       return CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, p)
     elseif request.execution.OSFamily == "windows" then
@@ -419,9 +420,9 @@ function rules.F_Build(command, request)
       else
         error("unsupported ABIv3: " .. request.execution.ABIv3)
       end
-      p.cmakeexe =
-          "$(get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-" ..
-          cmakeabi .. ".zip -n 1 -d : -e 'bin/*')/bin/cmake.exe"
+      p.cmakebin = "$(--path=absnative get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-" ..
+          cmakeabi .. ".zip -n 1 -d : -e 'bin/*')${/}bin"
+      p.cmakeexe = p.cmakebin .. "${/}cmake.exe"
       -- use ninja.exe as the executable filename so it runs on Windows
       p.absninjaexe = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s Release." ..
           p.execabi ..
@@ -583,7 +584,12 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
             },
             function_ = {
               execution = { { name = "OSFamily", value = p.osfamily } },
-              commands = commands
+              commands = commands,
+              envmods = {
+                -- p.cmakebin: to mitigate "Could not find CMAKE_ROOT", cmake must be on PATH for Ubuntu 24.04.
+                -- https://gitlab.kitware.com/cmake/cmake/-/work_items/22280#note_967101    
+                "<PATH=" .. p.cmakebin
+              }
             },
             outputs = {
               assets = {

@@ -21,6 +21,8 @@ jobs:
       fail-fast: true
       matrix:
         include:
+            # test with: docker run -v .:/work --workdir /work -it ubuntu:24.04 bash -c "apt update && apt install -y curl build-essential && sh ./dk0 distribute --actual-in-place --library CommonsBase_Build@2.5.99 part1 dist-any.u"
+            # curl and build-essential are auto installed by diskuv/dk-distribute@v2
           - runs-on: ubuntu-24.04 # Linux is cheapest and quickest to boot in Github Actions
             distscript: dist-any.u
 
