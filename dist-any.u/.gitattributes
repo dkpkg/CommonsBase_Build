@@ -1,2 +1,4 @@
-CMakeLists.txt text eol=lf
-*.cxx text eol=lf
+# assets should not have CRLF endings otherwise checksums differ between Win32 and Unix
+*.c     text eol=lf
+*.cxx   text eol=lf
+*.txt   text eol=lf

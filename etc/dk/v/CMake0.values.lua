@@ -114,7 +114,6 @@ rules, uirules = build.newrules(M)
 
 function CommonsBase_Build__CMake0__3_25_3.parse_common_args(request, p)
   p.osfamily = request.execution.OSFamily
-  p.execabi = request.execution.ABIv3
   p.gargs = request.user.gargs or {}
   p.bargs = request.user.bargs or {}
   p.iargs = request.user.iargs or {}
@@ -378,60 +377,19 @@ function rules.F_Build(command, request)
       assert(p.assetpath, "please provide 'assetpath=PATH_INSIDE_ASSET' when using 'assetmodver=ASSETMODULE@VERSION'")
     end
 
-    p.coreutilsexe = "$(get-object CommonsBase_Std.Coreutils@0.2.2 -s Release." ..
-        p.execabi .. " -m ./coreutils.exe -e '*' -f coreutils.exe)"
-    p.fdexe = "$(get-object CommonsBase_Std.Fd@10.3.0 -s Release." ..
-        p.execabi .. " -m ./fd.exe -e '*' -f fd.exe)"
+    p.coreutilsexe = "$(get-object CommonsBase_Std.Coreutils@0.2.2 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e '*' -f coreutils.exe)"
+    p.fdexe = "$(get-object CommonsBase_Std.Fd@10.3.0 -s ${SLOTNAME.Release.execution_abi} -m ./fd.exe -e '*' -f fd.exe)"
 
     -- ninjaexe must be absolute path since it is passed to CMAKE_MAKE_PROGRAM CACHE variable
-    p.absninjaexe = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s Release." ..
-        p.execabi ..
-        " -m ./ninja.exe -f ninja -e '*')"
+    -- use ninja.exe on Windows as the executable filename so it runs on Windows. but keep as `ninja` on Unix so CMake scripts are not confused
+    p.absninjaexe = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s ${SLOTNAME.Release.execution_abi} -m ./ninja.exe -f ninja${.exe.execution} -e '*')"
 
-    if request.execution.OSFamily == "macos" then
-      p.cmakebin = "$(--path=absnative get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-darwin_universal.zip -n 1 -d : -e 'CMake.app/Contents/bin/*')/CMake.app/Contents/bin"
-      p.cmakeexe = p.cmakebin .. "/cmake"
-      p.osfamily = "macos"
-      return CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, p)
-    elseif request.execution.OSFamily == "linux" then
-      local cmakeabi
-      if request.execution.ABIv3 == "Linux_x86_64" then
-        cmakeabi = "linux_x86_64"
-      elseif request.execution.ABIv3 == "Linux_x86" then
-        cmakeabi = "linux_x86"
-      elseif request.execution.ABIv3 == "Linux_arm64" then
-        cmakeabi = "linux_arm64"
-      else
-        error("unsupported ABIv3: " .. request.execution.ABIv3)
-      end
-      p.cmakebin = "$(--path=absnative get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-" ..
-          cmakeabi .. ".zip -n 1 -d : -e 'bin/*')/bin"
-      p.cmakeexe = p.cmakebin .. "/cmake"
-      p.osfamily = "linux"
-      return CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, p)
-    elseif request.execution.OSFamily == "windows" then
-      local cmakeabi
-      if request.execution.ABIv3 == "Windows_x86_64" then
-        cmakeabi = "windows-x86_64"
-      elseif request.execution.ABIv3 == "Windows_x86" then
-        cmakeabi = "windows-i386"
-      elseif request.execution.ABIv3 == "Windows_arm64" then
-        cmakeabi = "windows-arm64"
-      else
-        error("unsupported ABIv3: " .. request.execution.ABIv3)
-      end
-      p.cmakebin = "$(--path=absnative get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-" ..
-          cmakeabi .. ".zip -n 1 -d : -e 'bin/*')${/}bin"
-      p.cmakeexe = p.cmakebin .. "${/}cmake.exe"
-      -- use ninja.exe as the executable filename so it runs on Windows
-      p.absninjaexe = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s Release." ..
-          p.execabi ..
-          " -m ./ninja.exe -f ninja.exe -e '*')"
-      p.osfamily = "windows"
-      return CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, p)
-    else
-      error("unsupported OSFamily: " .. request.execution.OSFamily)
-    end
+    local str_cmakezipname = "$(get-asset CommonsBase_Build.Apparatus.LookupCMake3_25_3@0.1.0 -p lookup-cmake-3-25-3 -m ./${SLOTNAME.execution_abi}.txt)" -- "cmake-3.25.3-windows-x86_64.zip" --
+    local str_cmakebin = "$(get-asset CommonsBase_Build.Apparatus.LookupCMakeBin@0.1.0 -p lookup-cmake-bin -m ./${SLOTNAME.execution_abi}.txt)" -- "bin" --
+    local abspath_cmakedir = "$(--path=absnative get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p " .. str_cmakezipname .. " -n 1 -d : -e 'bin/*' -e 'CMake.app/Contents/bin/*')"
+    p.cmakebin = abspath_cmakedir .. "${/}" .. str_cmakebin
+    p.cmakeexe = p.cmakebin .. "${/}cmake${.exe.execution}"
+    return CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, p)
   end
 end
 
@@ -583,7 +541,6 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
               private = precommands_private
             },
             function_ = {
-              execution = { { name = "OSFamily", value = p.osfamily } },
               commands = commands,
               envmods = {
                 -- p.cmakebin: to mitigate "Could not find CMAKE_ROOT", cmake must be on PATH for Ubuntu 24.04.

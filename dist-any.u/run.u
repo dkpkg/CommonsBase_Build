@@ -8,6 +8,17 @@ We'll bundle a small CMake project.
   '790'
   { 'sha256:847c39531962e987ba69983babf15f244735f3d566d4fdcaa9a94c038484415d' }
 
+We'll also bundle lookup tables to translate ABIs into their correct paths.
+
+  % unified.asset { name="LookupCMake3_25_3", dir="lookup-cmake-3-25-3" }
+  'asset'
+  '1492'
+  { 'sha256:086addb0c98ad7d7ca691e33cd7ba3ac405990d928f0377c373d6a115d685bdf' }
+  % unified.asset { name="LookupCMakeBin", dir="lookup-cmake-bin" }
+  'asset'
+  '1350'
+  { 'sha256:2775a40cc3860fd3850a50797372a894c7eca1bf14e1be90024dbce2236b3a84' }
+
 ## CommonsBase_Build.CMake0.Bundle@3.25.3
 
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-darwin_universal.zip -f ${RUNTIME}/a1
@@ -145,7 +156,7 @@ One of the following sets of options must be provided:
   > bargs[]=--config bargs[]=Release
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
-  [pass] object:oqgigsxg2mhkeijmvdv5sp6yhqeclbxxftd67juprkgrhaweob54q:OurCMake_F_Build.Xhmcju4uhjoh54b35k3iobgdz4q@1.0.0
+  [pass] object:oor4kvp5hp7wtwtzfba2ayfhpanwjyhxnsryjssyr5nxt5zslkycq:OurCMake_F_Build.Xhmcju4uhjoh54b35k3iobgdz4q@1.0.0
 
 which runs:
 
