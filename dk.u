@@ -4,7 +4,8 @@
   'import'
   'github-l2'
   { {
-      'CommonsBase_Std', '2.5.202604230000', {
-        'blake2b-256:9d19a7cb25035644d1641c377a5490a7d08d5422064fdf896fe1f84026f2e3d1', 'sha256:585ecd0ba5733dc278e4dd422d93c6c7c8bbc69b2706ebf733503b4c19340487',
-        'sha1:f5af9c4637307a0357767500f2350d01580dcdf6'
+      'CommonsBase_Std', '2.5.202604240000', {
+        'blake2b-256:a4da9edfb9861a1cc78981e3bffd5d18c2ff4e6be2ed1a61503717c27d7120cf',
+        'sha256:6374c927ae349d284a3f8c6c268dbeb29d8d8b234d5bc5192f65d486cc50f7db',
+        'sha1:1c73b9a23dd9bf116ab7cd2885b262bb0f7cf2bd'
       } } }
