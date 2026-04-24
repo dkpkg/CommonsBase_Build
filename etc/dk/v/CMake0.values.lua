@@ -1,106 +1,3 @@
--- USAGE 1 OF 2: CommonsBase_Build.CMake0.Build@3.25.3
--- (UI rule) Generates a CMake build system in the build directory.
--- Configurations: One of the following sets of options must be provided:
---   installdir= src[]= out[]=
---   installdir= src[]= outexe[]=
---   installdir= mirrors[]= urlpath= out[]=
---   installdir= mirrors[]= urlpath= outexe[]=
--- Options:
---  src[]: list of glob patterns for the local source directory
---  mirrors[]: HTTP base urls to download the CMake source directory
---  urlpath: path added to the mirrors so full URL is a ZIP file of the CMake source directory
---  installdir: (required) the install directory to pass to `cmake --install ... --prefix INSTALL_DIRECTORY`
---  generator: the cmake generator to use (defaults to "none" on Windows, "Ninja" on other OS-es).
---     The special value "none" removes the "-G GENERATOR" CMake option so CMake selects any
---     available compiler.
---  sourcesubdir: subdirectory inside the asset or bundle that contains the CMakeLists.txt (defaults to root of asset or bundle)
---  nstrip: levels of leading directories to nstrip while extract asset or bundle (defaults to 0)
---  gargs[]: list of cmake generator arguments to pass to cmake executable.
---        The -S source directory is required.
---        The -B build directory will already be set.
---  bargs[]: list of cmake build arguments to pass to cmake executable.
---  iargs[]: list of cmake install arguments to pass to cmake executable.
---  out[]: list of expected output files in the install directory
---  outexe[]: list of expected executable files in the install directory. On Windows `.exe` is added automatically.
---     ie. outexe[]=bin/xyz is the equivalent of out[]=bin/xyz.exe on Windows and out[]=bin/xyz on Unix
---  outrmexact[]: list of exact strictly relative paths (relative to build directory) to remove
---  outrmglob[]: list of "fd" filename glob patterns for files in the build directory to remove after outrmexact[].
---     Remove every file type except directories; use outrmexact for directories for safety.
---  exe[]: list of glob patterns for executables to set execute permissions (Unix) and locally codesign (macOS).
--- examples:
---  dk0 run CommonsBase_Build.CMake0.Build@3.25.3 \
---    installdir=t/i \
---    'mirrors[]=https://github.com/google/or-tools/archive/refs/tags' \
---    'urlpath=v9.15.zip#920d8266b30a7a8f8572a5dc663fdf8d2701792101dd95f09e72397c16e12858,25297362' \
---    'nstrip=1' \
---    'gargs[]=-DBUILD_DEPS:BOOL=ON' \
---    'out[]=bin/nqueue_sat'
--- what gets run: (see usage for "CommonsBase_Build.CMake0.F_Build@3.25.3" below)
-
--- USAGE 2 OF 2: CommonsBase_Build.CMake0.F_Build@3.25.3
--- (Free rule) Generates a CMake build directory, builds the CMake project and installs the CMake project in the output directory.
--- Configurations: One of the following sets of options must be provided:
---  bundlemodver=
---  assetmodver= assetpath=
--- Options:
---  generator: the cmake generator to use (defaults to "none" on Windows, "Ninja" on other OS-es).
---    The special value "none" removes the "-G GENERATOR" CMake option so CMake selects any
---    available compiler.
---  assetmodver: asset module@version of CMake source directory
---  assetpath: path inside the [assetmodver] asset module of the CMake source directory
---  overlayassetpath: path inside the [assetmodver] asset module that gets layered on top of the source
---  bundlemodver: bundle module@version of CMake source directory; overlayassetpath ignored
---  overlaybundlemodver: bundle module@version that gets layered on top of the source
---  sourcesubdir: subdirectory inside the asset or bundle that contains the CMakeLists.txt (defaults to root of asset or bundle)
---  nstrip: levels of leading directories to nstrip while extract asset or bundle (defaults to 0)
---  gargs[]: list of cmake generator arguments to pass to cmake executable.
---        The -S source directory is required.
---        The -B build directory will already be set.
---  bargs[]: list of cmake build arguments to pass to cmake executable.
---  iargs[]: list of cmake install arguments to pass to cmake executable.
---  out[]: list of expected output files in the install directory
---  outexe[]: list of expected executable files in the install directory. On Windows `.exe` is added automatically.
---     ie. outexe[]=bin/xyz is the equivalent of out[]=bin/xyz.exe on Windows and out[]=bin/xyz on Unix
---  outrmexact[]: list of exact strictly relative paths (relative to build directory) to remove
---  outrmglob[]: list of "fd" filename glob patterns for files in the build directory to remove after outrmexact[].
---        Remove every file type except directories; use outrmexact for directories for safety.
---  exe[]: list of glob patterns for executables to set execute permissions (Unix) and locally codesign (macOS).
--- examples:
---  dk0 post-object CommonsBase_Build.CMake0.F_Build@3.25.3 \
---    generator=Ninja 'iargs[]=-S' 'iargs[]=.' 'out[]=bin/cmake-generated.exe'
--- what gets run:
---   get-asset <assetmodver> -p <assetpath> -d s [-or-] get-bundle <bundlemodver> -d s
---   $(get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.<execution abi> -m ./ninja.exe -f : -e '*') (if generator is "Ninja")
---   cmake -G <generator> -S s/<sourcesubdir> -B b
---     -DCMAKE_INSTALL_PREFIX:FILEPATH=${SLOTABS.Release.Agnostic}
---     -DCMAKE_MAKE_PROGRAM:FILEPATH=<path to ninja.exe> (if generator is "Ninja")
---     <gargs>
---   cmake --build b <bargs>
---   cmake --install b --prefix ${SLOTABS.Release.Agnostic} <iargs>
-
--- COMPILERS
---
--- ::: Windows / Visual Studio
--- The default generator is nothing on Windows. CMake will select any available compiler,
--- which may be the latest Visual Studio if your build machine has Visual Studio installed.
-
--- DESIGN QUESTIONS
--- Q1: Why a rule instead of a simpler `get-object`?
--- ANS1: Because dk0 objects are deterministic zip files that do not allow symlinks.
--- Symlinks cause inconsistency across platforms so with deterministic objects
--- the CMake.app code signature output by `get-object` would be invalid on macOS.
---
--- Q2: CMAKE_INSTALL_PREFIX?
--- The CMAKE_INSTALL_PREFIX is set for CMake projects like google/or-tools that do not respect
--- the prefix option in `cmake --install --prefix` (usually when the project sets CMAKE_INSTALL_PREFIX CACHE
--- variable by default).
---
--- Q3: Hermeticity?
--- In a <FUTURE> version, CMakeCache.txt can be checked in this rule to find out if all the CACHE variables are hermetic.
---    Example: BAD: _Python3_EXECUTABLE:INTERNAL=/opt/homebrew/Frameworks/Python.framework/Versions/3.11/bin/python3.11
---    Example: GOOD: generated_dir:INTERNAL=/Volumes/SSD/Source/dk/t/p/4472/e7lu/f/Release.Agnostic/b/_deps/googletest-build/googletest/generated
-
-
 local M = {
   id = "CommonsBase_Build.CMake0@3.25.3"
 }
@@ -355,9 +252,9 @@ function rules.F_Build(command, request)
   if command == "declareoutput" then
     return {
       declareoutput = {
-        return_form = {
+        return_objects = {
           id = "OurCMake_F_Build." .. request.rule.generatesymbol() .. "@1.0.0",
-          slot = "Release.Agnostic"
+          slots = { "Release.Agnostic" }
         }
       }
     }
