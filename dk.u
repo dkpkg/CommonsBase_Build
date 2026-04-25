@@ -1,11 +1,11 @@
 ## workspace
 
-  %% import { type="github-l2", repo="diskuv/CommonsBase_Std" }
+  %% import { type="github-l2", repo="dkpkg/CommonsBase_Std" }
   'import'
   'github-l2'
   { {
-      'CommonsBase_Std', '2.5.202604240000', {
-        'blake2b-256:a4da9edfb9861a1cc78981e3bffd5d18c2ff4e6be2ed1a61503717c27d7120cf',
-        'sha256:6374c927ae349d284a3f8c6c268dbeb29d8d8b234d5bc5192f65d486cc50f7db',
-        'sha1:1c73b9a23dd9bf116ab7cd2885b262bb0f7cf2bd'
+      'CommonsBase_Std', '2.5.202604240002', {
+        'blake2b-256:63583e88e670da00249d267e6f0b043937377ee252a0ec5720359e1ce5cee44b',
+        'sha256:2bb0f05837774e2c836dd74b53a589a5c8c2c1166fd1de9b94a6987d0253492c',
+        'sha1:98b5497a6d37707e62c6974a63b6197b83932336'
       } } }
