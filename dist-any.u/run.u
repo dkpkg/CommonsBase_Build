@@ -93,7 +93,7 @@ One of the following sets of options must be provided:
 -- Q3: Hermeticity?
 -- In a <FUTURE> version, CMakeCache.txt can be checked in this rule to find out if all the CACHE variables are hermetic.
 --    Example: BAD: _Python3_EXECUTABLE:INTERNAL=/opt/homebrew/Frameworks/Python.framework/Versions/3.11/bin/python3.11
---    Example: GOOD: generated_dir:INTERNAL=/Volumes/SSD/Source/dk/t/p/4472/e7lu/f/Release.Agnostic/b/_deps/googletest-build/googletest/generated
+--    Example: GOOD: generated_dir:INTERNAL=/Volumes/SSD/Source/dk/t/p/4472/e7lu/f/Release.Darwin_arm64/b/_deps/googletest-build/googletest/generated
 
 ### Examples
 
@@ -156,7 +156,9 @@ One of the following sets of options must be provided:
   > bargs[]=--config bargs[]=Release
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
-  [pass] object:oor4kvp5hp7wtwtzfba2ayfhpanwjyhxnsryjssyr5nxt5zslkycq:OurCMake_F_Build.Xhmcju4uhjoh54b35k3iobgdz4q@1.0.0
+  \test(pass)\dkobjects\;{
+    "Release.Windows_x86_64": "omfxphhtx54cgoysl6gewo75gpjsose7nf7v3pds7rejbjm6clnrq"
+  }
 
 which runs:
 
@@ -165,11 +167,11 @@ which runs:
 - `cmake
      -G <generator> (if generator is "Ninja")
      -S s/<sourcesubdir> -B b
-     -DCMAKE_INSTALL_PREFIX:FILEPATH=${SLOTABS.Release.Agnostic}
+     -DCMAKE_INSTALL_PREFIX:FILEPATH=${SLOTABS.Release.execution_abi}
      -DCMAKE_MAKE_PROGRAM:FILEPATH=<path to ninja.exe> (if generator is "Ninja")
      <gargs>`
 - `cmake --build b <bargs>`
-- `cmake --install b --prefix ${SLOTABS.Release.Agnostic} <iargs>`
+- `cmake --install b --prefix ${SLOTABS.Release.execution_abi} <iargs>`
 
 ## CommonsBase_Build.Ninja0@1.12.1
 
