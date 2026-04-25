@@ -10,7 +10,6 @@ CommonsBase_Build__CMake0__3_25_3 = {}
 rules, uirules = build.newrules(M)
 
 function CommonsBase_Build__CMake0__3_25_3.parse_common_args(request, p)
-  p.osfamily = request.execution.OSFamily
   p.gargs = request.user.gargs or {}
   p.bargs = request.user.bargs or {}
   p.iargs = request.user.iargs or {}
@@ -254,7 +253,10 @@ function rules.F_Build(command, request)
       declareoutput = {
         return_objects = {
           id = "OurCMake_F_Build." .. request.rule.generatesymbol() .. "@1.0.0",
-          slots = { "Release.Agnostic" }
+          slots = { "Release.Windows_x86_64", "Release.Windows_x86", "Release.Windows_arm64",
+                    "Release.Linux_x86_64", "Release.Linux_x86", "Release.Linux_arm64",
+                    "Release.Darwin_x86_64", "Release.Darwin_arm64" },
+          execution_slot = "Release.execution_abi"
         }
       }
     }
@@ -334,7 +336,7 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
   local gargs = {
     p.cmakeexe, "-S", sourcedir, "-B", "b",
     -- CMAKE_INSTALL_PREFIX needs to be absolute path
-    "-DCMAKE_INSTALL_PREFIX:FILEPATH=${SLOTABS.Release.Agnostic}"
+    "-DCMAKE_INSTALL_PREFIX:FILEPATH=${SLOTABS.Release.execution_abi}"
   }
   if p.generator ~= "none" then
     table.insert(gargs, "-G")
@@ -353,7 +355,7 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
   local iargs = {
     p.cmakeexe, "--install", "b",
     -- the install prefix needs to be absolute path
-    "--prefix", "${SLOTABS.Release.Agnostic}"
+    "--prefix", "${SLOTABS.Release.execution_abi}"
   }
   table.move(p.iargs, 1, table.getn(p.iargs), table.getn(iargs) + 1, iargs) ---@diagnostic disable-line: deprecated, access-invisible
 
@@ -376,12 +378,12 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
     table.insert(commands, 1, overlaycopycmd)
   end
 
-  -- validate and add `rm -rf DIRS` for each ${SLOT.Release.Agnostic}/DIR in p.outrmexact
+  -- validate and add `rm -rf DIRS` for each ${SLOT.Release.execution_abi}/DIR in p.outrmexact
   local rmdirs = {}
   k, v = next(p.outrmexact)
   while k do
     v = assert(stringdk.sanitizesubpath(v)) -- sanitize to prevent malicious input
-    rmdirs[k] = "${SLOT.Release.Agnostic}/" .. v
+    rmdirs[k] = "${SLOT.Release.execution_abi}/" .. v
     k, v = next(p.outrmexact, k)
   end
   if (table.getn(rmdirs) > 0) then ---@diagnostic disable-line: deprecated, access-invisible
@@ -391,7 +393,7 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
     table.move(rmrfcmd1, 1, table.getn(rmrfcmd1), table.getn(commands) + 1, commands) ---@diagnostic disable-line: deprecated, access-invisible
   end
 
-  -- add `fd --glob --hidden --no-ignore -X coreutils rm -f \; -- GLOB ${SLOT.Release.Agnostic}` for each GLOB in p.outrmglob
+  -- add `fd --glob --hidden --no-ignore -X coreutils rm -f \; -- GLOB ${SLOT.Release.execution_abi}` for each GLOB in p.outrmglob
   -- validation? the GLOB is after `--` so dashes won't be interpreted as options.
   -- also, the GLOB is applied to filenames _under_ the -C BASEDIR.
   -- so GLOB is sanitized
@@ -402,7 +404,7 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
       -- remove every file type except directories which should use outrmexact for safety
       "--type", "f", "--type", "l", "--type", "s", "--type", "p", "--type", "c", "--type", "b",
       "-X", p.coreutilsexe, "rm", "-f", ";",
-      "--", v, "${SLOT.Release.Agnostic}" }
+      "--", v, "${SLOT.Release.execution_abi}" }
     local fdcmd1 = { fdcmd } -- add one [fd] command
     table.move(fdcmd1, 1, table.getn(fdcmd1), table.getn(commands) + 1, commands) ---@diagnostic disable-line: deprecated, access-invisible
     k, v = next(p.outrmglob, k)
@@ -410,21 +412,47 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
 
   -- output paths
   --   the union of p.out and p.outexe but p.outexe has .exe suffix on Windows
-  local outpaths = {}
+  local outpathscommon = {}
+  local outpathswindows = {}
+  local outpathsunix = {}
   local p_out = p.out or {}
   local p_outexe = p.outexe or {}
   k, v = next(p_out)
   while k do
-    outpaths[k] = v
+    outpathscommon[k] = v
     k, v = next(p_out, k)
   end
   k, v = next(p_outexe)
   while k do
-    if p.osfamily == "windows" then
-      v = v .. ".exe"
-    end
-    outpaths[k] = v
+    outpathswindows[k] = v .. ".exe"
+    outpathsunix[k] = v
     k, v = next(p_outexe, k)
+  end
+
+  -- output assets
+  --   only add [outpathscommon] if non-empty
+  --   ditto for [outpathswindows] and [outpathsunix].
+  local outassets = {}
+  if next(outpathscommon) then
+    table.insert(outassets, {
+      slots = { "Release.Windows_x86_64", "Release.Windows_x86", "Release.Windows_arm64",
+                "Release.Linux_x86_64", "Release.Linux_x86", "Release.Linux_arm64",
+                "Release.Darwin_x86_64", "Release.Darwin_arm64" },
+      paths = outpathscommon
+    })
+  end
+  if next(outpathswindows) then
+    table.insert(outassets, {
+      slots = { "Release.Windows_x86_64", "Release.Windows_x86", "Release.Windows_arm64" },
+      paths = outpathswindows
+    })
+  end
+  if next(outpathsunix) then
+    table.insert(outassets, {
+      slots = { "Release.Linux_x86_64", "Release.Linux_x86", "Release.Linux_arm64",
+                "Release.Darwin_x86_64", "Release.Darwin_arm64" },
+      paths = outpathsunix
+    })
   end
 
   return {
@@ -446,12 +474,7 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
               }
             },
             outputs = {
-              assets = {
-                {
-                  slots = { "Release.Agnostic" },
-                  paths = outpaths
-                }
-              }
+              assets = outassets
             }
           }
         }

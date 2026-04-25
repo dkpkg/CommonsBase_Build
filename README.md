@@ -15,7 +15,7 @@
 
 ```sh
 rm -rf t # or in PowerShelll: del -Force -Recurse .\t\
-docker run -v .:/work --workdir /work -it quay.io/pypa/manylinux_2_28_x86_64:2026.04.08-5 sh ./dk0 -nosysinc -v -v distribute --library CommonsBase_Build@2.5.999911122233 --actual-in-place dist-any.u 
+docker run -v .:/work --workdir /work -it quay.io/pypa/manylinux_2_28_x86_64:2026.04.08-5 sh ./dk0 -nosysinc -v -v distribute CommonsBase_Build-dist-any --library CommonsBase_Build@2.5.999911122233 --actual-in-place dist-any.u
 ```
 
 ## Updating dk0 and dk0.cmd scripts
