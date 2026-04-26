@@ -25,19 +25,8 @@ function CommonsBase_Build__CMake0__3_25_3.parse_common_args(request, p)
   p.nstrip = request.user.nstrip or 0
 end
 
-function CommonsBase_Build__CMake0__3_25_3.get_generator(request)
-  if request.user.generator then
-    return request.user.generator
-  elseif request.execution.OSFamily == "windows" then
-    return "none"
-  else
-    return "Ninja"
-  end
-end
-
 function uirules.Build(command, request)
   local installdir = assert(request.user.installdir, "please provide 'installdir=INSTALL_DIRECTORY'")
-  local generator = CommonsBase_Build__CMake0__3_25_3.get_generator(request)
 
   local src = request.user.src
   local mirrors = request.user.mirrors
@@ -77,7 +66,6 @@ function uirules.Build(command, request)
   end
 
   p.outputid = "OurCMake_Build." .. request.rule.generatesymbol() .. "@1.0.0"
-  p.generator = generator
   p.src = src
   p.mirrors = mirrors
   p.urlpath_only = urlpath_only
@@ -247,15 +235,59 @@ function CommonsBase_Build__CMake0__3_25_3.ui_generate_build_install(command, re
   end
 end
 
+CommonsBase_Build__CMake0__3_25_3.execution_abis = {
+  "Windows_x86_64", "Windows_x86", "Windows_arm64",
+  "Linux_x86_64", "Linux_x86", "Linux_arm64",
+  "Darwin_x86_64", "Darwin_arm64"
+}
+
+function CommonsBase_Build__CMake0__3_25_3.is_windows_abi(abi)
+  return string.find(abi, "Windows_") ~= nil
+end
+function CommonsBase_Build__CMake0__3_25_3.is_unix_abi(abi)
+  return string.find(abi, "Windows_") == nil
+end
+
+function CommonsBase_Build__CMake0__3_25_3.get_release_execution_abis()
+  local abis = {}
+  local k, v = next(CommonsBase_Build__CMake0__3_25_3.execution_abis)
+  while k do
+    abis[k] = "Release." .. v
+    k, v = next(CommonsBase_Build__CMake0__3_25_3.execution_abis, k)
+  end
+  return abis
+end
+function CommonsBase_Build__CMake0__3_25_3.get_release_windows_execution_abis()
+  local abis = {}
+  local k, v = next(CommonsBase_Build__CMake0__3_25_3.execution_abis)
+  while k do
+    if CommonsBase_Build__CMake0__3_25_3.is_windows_abi(v) then
+      abis[k] = "Release." .. v
+    end
+    k, v = next(CommonsBase_Build__CMake0__3_25_3.execution_abis, k)
+  end
+  return abis
+end
+function CommonsBase_Build__CMake0__3_25_3.get_release_unix_execution_abis()
+  local abis = {}
+  local k, v = next(CommonsBase_Build__CMake0__3_25_3.execution_abis)
+  while k do
+    if CommonsBase_Build__CMake0__3_25_3.is_unix_abi(v) then
+      abis[k] = "Release." .. v
+    end
+    k, v = next(CommonsBase_Build__CMake0__3_25_3.execution_abis, k)
+  end
+  return abis
+end
+
 function rules.F_Build(command, request)
   if command == "declareoutput" then
+    local slots = CommonsBase_Build__CMake0__3_25_3.get_release_execution_abis()
     return {
       declareoutput = {
         return_objects = {
           id = "OurCMake_F_Build." .. request.rule.generatesymbol() .. "@1.0.0",
-          slots = { "Release.Windows_x86_64", "Release.Windows_x86", "Release.Windows_arm64",
-                    "Release.Linux_x86_64", "Release.Linux_x86", "Release.Linux_arm64",
-                    "Release.Darwin_x86_64", "Release.Darwin_arm64" },
+          slots = slots,
           execution_slot = "Release.execution_abi"
         }
       }
@@ -266,7 +298,6 @@ function rules.F_Build(command, request)
     CommonsBase_Build__CMake0__3_25_3.parse_common_args(request, p)
 
     p.outputid = request.submit.outputid
-    p.generator = CommonsBase_Build__CMake0__3_25_3.get_generator(request)
     p.bundlemodver = request.user.bundlemodver
     p.assetmodver = request.user.assetmodver
     p.assetpath = request.user.assetpath
@@ -281,7 +312,8 @@ function rules.F_Build(command, request)
 
     -- ninjaexe must be absolute path since it is passed to CMAKE_MAKE_PROGRAM CACHE variable
     -- use ninja.exe on Windows as the executable filename so it runs on Windows. but keep as `ninja` on Unix so CMake scripts are not confused
-    p.absninjaexe = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s ${SLOTNAME.Release.execution_abi} -m ./ninja.exe -f ninja${.exe.execution} -e '*')"
+    p.absninjaexe_win32 = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s ${SLOTNAME.Release.execution_abi} -m ./ninja.exe -f ninja.exe -e '*')"
+    p.absninjaexe_unix = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s ${SLOTNAME.Release.execution_abi} -m ./ninja.exe -f ninja -e '*')"
 
     local str_cmakezipname = "$(get-asset CommonsBase_Build.Apparatus.LookupCMake3_25_3@0.1.0 -p lookup-cmake-3-25-3 -m ./${SLOTNAME.execution_abi}.txt)" -- "cmake-3.25.3-windows-x86_64.zip" --
     local str_cmakebin = "$(get-asset CommonsBase_Build.Apparatus.LookupCMakeBin@0.1.0 -p lookup-cmake-bin -m ./${SLOTNAME.execution_abi}.txt)" -- "bin" --
@@ -323,52 +355,78 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
     table.insert(precommands_private, "get-asset " .. p.assetmodver .. " -p " .. p.overlayassetpath .. " -d t/s")
   end
 
-  -- ninja generator args
-  local gninjaargs = {}
-  if p.generator == "Ninja" then
-    -- CMAKE_MAKE_PROGRAM needs to be absolute path
-    gninjaargs = {
-      "-DCMAKE_MAKE_PROGRAM:FILEPATH=" .. p.absninjaexe
+  -- start the true commands (not the precommands)
+  local commands = {}
+
+  -- run: cmake -G
+  -- for each ABI, add the ABI-specific generator args to "commands" array.
+  local abis = CommonsBase_Build__CMake0__3_25_3.get_release_execution_abis()
+  k, v = next(abis)
+  while k do
+    local abi = v
+
+    -- where is ninja
+    local absninjaexe
+    if CommonsBase_Build__CMake0__3_25_3.is_windows_abi(abi) then
+      absninjaexe = p.absninjaexe_win32
+    else
+      absninjaexe = p.absninjaexe_unix
+    end
+
+    -- ninja generator args
+    local gninjaargs = {}
+    local generator
+    if request.user.generator then
+      generator = request.user.generator
+    elseif CommonsBase_Build__CMake0__3_25_3.is_windows_abi(abi) then
+      generator = "none"
+    else
+      generator = "Ninja"
+      -- CMAKE_MAKE_PROGRAM needs to be absolute path
+      gninjaargs = {
+        "-DCMAKE_MAKE_PROGRAM:FILEPATH=" .. absninjaexe
+      }
+    end
+
+    -- concatenate [p.gargs] into array "gargs". add to "commands" array
+    local gargs = {
+      p.cmakeexe, "-S", sourcedir, "-B", "b",
+      -- CMAKE_INSTALL_PREFIX needs to be absolute path
+      "-DCMAKE_INSTALL_PREFIX:FILEPATH=${SLOTABS." .. abi .. "}"
     }
+    if generator ~= "none" then
+      table.insert(gargs, "-G")
+      table.insert(gargs, generator)
+    end
+    table.move(p.gargs, 1, table.getn(p.gargs), table.getn(gargs) + 1, gargs) ---@diagnostic disable-line: deprecated, access-invisible
+    table.move(gninjaargs, 1, table.getn(gninjaargs), table.getn(gargs) + 1, gargs) ---@diagnostic disable-line: deprecated, access-invisible
+
+    table.insert(commands, gargs)
+
+    k, v = next(abis, k)
   end
 
-  -- concatenate [p.gargs] into string "generate_cmd"
-  local gargs = {
-    p.cmakeexe, "-S", sourcedir, "-B", "b",
-    -- CMAKE_INSTALL_PREFIX needs to be absolute path
-    "-DCMAKE_INSTALL_PREFIX:FILEPATH=${SLOTABS.Release.execution_abi}"
-  }
-  if p.generator ~= "none" then
-    table.insert(gargs, "-G")
-    table.insert(gargs, p.generator)
-  end
-  table.move(p.gargs, 1, table.getn(p.gargs), table.getn(gargs) + 1, gargs) ---@diagnostic disable-line: deprecated, access-invisible
-  table.move(gninjaargs, 1, table.getn(gninjaargs), table.getn(gargs) + 1, gargs) ---@diagnostic disable-line: deprecated, access-invisible
-
-  -- concatenate p.bargs into string "build_cmd"
+    -- run: cmake --build
+  -- concatenate p.bargs into array "bargs". add to "commands" array
   local bargs = {
     p.cmakeexe, "--build", "b"
   }
   table.move(p.bargs, 1, table.getn(p.bargs), table.getn(bargs) + 1, bargs) ---@diagnostic disable-line: deprecated, access-invisible
-
-  -- concatenate p.iargs into array "iargs"
+  table.insert(commands, bargs)
+  
+    -- run: cmake --install
+  -- concatenate p.iargs into array "iargs". add to "commands" array
   local iargs = {
     p.cmakeexe, "--install", "b",
     -- the install prefix needs to be absolute path
     "--prefix", "${SLOTABS.Release.execution_abi}"
   }
   table.move(p.iargs, 1, table.getn(p.iargs), table.getn(iargs) + 1, iargs) ---@diagnostic disable-line: deprecated, access-invisible
+  table.insert(commands, iargs)
 
-  -- assemble the array of commands
-  local commands = {
-    -- run: cmake -G
-    gargs,
-    -- run: cmake --build
-    bargs,
-    -- run: cmake --install
-    iargs
-  }
-
+  -- add build and install commands to "commands" array
+  table.insert(commands, gargs)
+  
   -- prepend overlay bundle copy command
   if p.overlaybundlemodver or p.overlayassetpath then
     local overlaycopycmd = {
@@ -435,22 +493,19 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
   local outassets = {}
   if next(outpathscommon) then
     table.insert(outassets, {
-      slots = { "Release.Windows_x86_64", "Release.Windows_x86", "Release.Windows_arm64",
-                "Release.Linux_x86_64", "Release.Linux_x86", "Release.Linux_arm64",
-                "Release.Darwin_x86_64", "Release.Darwin_arm64" },
+      slots = CommonsBase_Build__CMake0__3_25_3.get_release_execution_abis(),
       paths = outpathscommon
     })
   end
-  if next(outpathswindows) then
+  if next(outpathswindows) then    
     table.insert(outassets, {
-      slots = { "Release.Windows_x86_64", "Release.Windows_x86", "Release.Windows_arm64" },
+      slots = CommonsBase_Build__CMake0__3_25_3.get_release_windows_execution_abis(),
       paths = outpathswindows
     })
   end
   if next(outpathsunix) then
     table.insert(outassets, {
-      slots = { "Release.Linux_x86_64", "Release.Linux_x86", "Release.Linux_arm64",
-                "Release.Darwin_x86_64", "Release.Darwin_arm64" },
+      slots = CommonsBase_Build__CMake0__3_25_3.get_release_unix_execution_abis(),
       paths = outpathsunix
     })
   end

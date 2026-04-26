@@ -157,8 +157,8 @@ One of the following sets of options must be provided:
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
   \test(pass)\dkobjects\;{
-    "Release.Linux_x86_64": "ozwxqquic7avcxbckuvugtyffzbl2rl35qntqnnpfa3p7xvg7oaeq",
-    "Release.Windows_x86_64": "omfxphhtx54cgoysl6gewo75gpjsose7nf7v3pds7rejbjm6clnrq"
+    "Release.Linux_x86_64": "o25m4wgdnfrkgslms7zunckw25bdyyeg67caizrhm2p4gzhdecn4q",
+    "Release.Windows_x86_64": "ofbgoze2k2pf2u4qbwgikkwwlxuaoqg4h2xaxrmobqd3nymhbz4va"
   }
 
 which runs:
