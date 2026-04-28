@@ -48,6 +48,7 @@ jobs:
       - name: Distribute Modules
         uses: diskuv/dk-distribute@v2
         with:
+            standalone: true
             pubkey: ${{ secrets.distribute_2_5_pubkey }}
             seckey: ${{ secrets.distribute_2_5_seckey }}
             options: -nosysinc
