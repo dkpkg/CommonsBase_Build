@@ -307,7 +307,7 @@ function rules.F_Build(command, request)
       assert(p.assetpath, "please provide 'assetpath=PATH_INSIDE_ASSET' when using 'assetmodver=ASSETMODULE@VERSION'")
     end
 
-    p.coreutilsexe = "$(get-object CommonsBase_Std.Coreutils@0.2.2 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e '*' -f coreutils.exe)"
+    p.coreutilsexe = "$(get-object CommonsBase_Std.Coreutils@0.6.0 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e '*' -f coreutils.exe)"
     p.fdexe = "$(get-object CommonsBase_Std.Fd@10.3.0 -s ${SLOTNAME.Release.execution_abi} -m ./fd.exe -e '*' -f fd.exe)"
 
     -- ninjaexe must be absolute path since it is passed to CMAKE_MAKE_PROGRAM CACHE variable
