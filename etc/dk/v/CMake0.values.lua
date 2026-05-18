@@ -283,13 +283,29 @@ end
 function rules.F_Build(command, request)
   if command == "declareoutput" then
     local slots = CommonsBase_Build__CMake0__3_25_3.get_release_execution_abis()
+    local input_bundles = {}
+    local input_assets = {}
+    local bundlemodver = request.user.bundlemodver
+    local assetmodver = request.user.assetmodver
+    local assetpath = request.user.assetpath
+    assert(bundlemodver or assetmodver,
+      "please provide either 'bundlemodver=BUNDLEMODULE@VERSION' or 'assetmodver=ASSETMODULE@VERSION' for the CMake source directory")
+    if bundlemodver then
+      table.insert(input_bundles, { id = bundlemodver })
+    end
+    if assetmodver then
+      assert(assetpath, "please provide 'assetpath=PATH_INSIDE_ASSET' when using 'assetmodver=ASSETMODULE@VERSION'")
+      table.insert(input_assets, { id = assetmodver, path = assetpath })
+    end
     return {
       declareoutput = {
         return_objects = {
           id = "OurCMake_F_Build." .. request.rule.generatesymbol() .. "@1.0.0",
           slots = slots,
           execution_slot = "Release.execution_abi"
-        }
+        },
+        input_bundles = input_bundles,
+        input_assets = input_assets
       }
     }
   elseif command == "submit" then
