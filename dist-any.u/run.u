@@ -157,7 +157,7 @@ One of the following sets of options must be provided:
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
   \test(pass)
-  \dkobject(abi: "Release.Linux_x86_64", value_id: "o25m4wgdnfrkgslms7zunckw25bdyyeg67caizrhm2p4gzhdecn4q")\;
+  \dkobject(abi: "Release.Linux_x86_64", value-id: "o25m4wgdnfrkgslms7zunckw25bdyyeg67caizrhm2p4gzhdecn4q")\;
 
 which runs:
 
@@ -176,22 +176,22 @@ which runs:
 
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dkobject(abi: "Release.Windows_arm64", value_id: "o7s5p7woasm43fqwzc45l2o2ht57bwl2z2aehy2zjix7bnqf3x32a")\;
+  \dkobject(abi: "Release.Windows_arm64", value-id: "o7s5p7woasm43fqwzc45l2o2ht57bwl2z2aehy2zjix7bnqf3x32a")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dkobject(abi: "Release.Windows_x86_64", value_id: "oarosxthtrgkstvvchonglc2p7aj3vp7pzygjfo77xynsbdw35gzq")\;
+  \dkobject(abi: "Release.Windows_x86_64", value-id: "oarosxthtrgkstvvchonglc2p7aj3vp7pzygjfo77xynsbdw35gzq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dkobject(abi: "Release.Darwin_arm64", value_id: "o3jk5lsvsix5tbyupm6tcm2eng4jmofier7jamc2oakzpz57hrbhq")\;
+  \dkobject(abi: "Release.Darwin_arm64", value-id: "o3jk5lsvsix5tbyupm6tcm2eng4jmofier7jamc2oakzpz57hrbhq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dkobject(abi: "Release.Darwin_x86_64", value_id: "otuu72s7zfjqbynrqfrebtzmrt4aegp6mxhoxxngbhs32kot2nkoa")\;
+  \dkobject(abi: "Release.Darwin_x86_64", value-id: "otuu72s7zfjqbynrqfrebtzmrt4aegp6mxhoxxngbhs32kot2nkoa")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-Ninja0-1.12.1.zip
   \test(pass)
-  \dkobject(abi: "Release.Linux_x86", value_id: "ouffxf4brvk527rrf5trkjby5dpn3pp6xt3gfojng5th6djp5xbmq")\;
+  \dkobject(abi: "Release.Linux_x86", value-id: "ouffxf4brvk527rrf5trkjby5dpn3pp6xt3gfojng5th6djp5xbmq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dkobject(abi: "Release.Linux_x86_64", value_id: "okwlfh53frfg6kerogiq2genhsschyvqgjwcyawrgfw4tdy6rodta")\;
+  \dkobject(abi: "Release.Linux_x86_64", value-id: "okwlfh53frfg6kerogiq2genhsschyvqgjwcyawrgfw4tdy6rodta")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dkobject(abi: "Release.Linux_arm64", value_id: "ofhgsaxo2r7rbwufyljjllz2vpwvicworoyafdf3dvoeqvx4mevua")\;
+  \dkobject(abi: "Release.Linux_arm64", value-id: "ofhgsaxo2r7rbwufyljjllz2vpwvicworoyafdf3dvoeqvx4mevua")\;
