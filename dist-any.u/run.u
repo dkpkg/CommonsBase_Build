@@ -157,8 +157,7 @@ One of the following sets of options must be provided:
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
   \test(pass)
-  \dkobject(abi: "Release.Linux_x86_64", value_id: "o25m4wgdnfrkgslms7zunckw25bdyyeg67caizrhm2p4gzhdecn4q")
-  \dkobject(abi: "Release.Windows_x86_64", value_id: "ofbgoze2k2pf2u4qbwgikkwwlxuaoqg4h2xaxrmobqd3nymhbz4va")\;
+  \dkobject(abi: "Release.Linux_x86_64", value_id: "o25m4wgdnfrkgslms7zunckw25bdyyeg67caizrhm2p4gzhdecn4q")\;
 
 which runs:
 
