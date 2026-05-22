@@ -55,6 +55,7 @@ jobs:
             options: -nosysinc
             use-cache: true
             distscript: ${{ matrix.distscript }}
+            execution-abi: ${{ matrix.execution-abi }}
             experimental-dk-owner: ${{ github.repository_owner == 'dkpkg' && 'diskuv' || github.repository_owner }}
             #   Use MlFront HEAD when CI build is not from a tag
             experimental-mlfront-ref: ${{ github.ref_type != 'tag' && 'HEAD' }}
