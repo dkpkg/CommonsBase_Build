@@ -33,6 +33,7 @@ jobs:
             #image: conanio/gcc11:1.63.0 # glibc 2.31 + gcc 11.1.0: old glibc is Debian 11 LTS compatible and works with Node v24.14.0; system gcc will not be needed once GCC bootstrapped in dk0.
             #image: buildpack-deps:22.04 # glibc 2.35 + gcc 11.4.0: old glibc is highly compatible and works with Node v24.14.0; system gcc will not be needed (22.04-curl) once GCC bootstrapped in dk0.
             image: quay.io/pypa/manylinux_2_28_x86_64:2026.04.08-5 # glibc 2.28 + gcc 14.2.1: old glibc is highly compatible and works with Node v24.14.0; system gcc will not be needed once GCC bootstrapped in dk0.
+            execution-abi: Linux_x86_64
 
     runs-on: ${{ matrix.runs-on }}
     container:
