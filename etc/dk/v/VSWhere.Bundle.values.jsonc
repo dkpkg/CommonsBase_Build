@@ -1,0 +1,33 @@
+// Test: ./dk0 --trust-local-package CommonsBase_Build --autofix get-bundle CommonsBase_Build.VSWhere.Bundle@3.1.7 -d target/vswhere-src
+{
+    "$schema": "https://github.com/diskuv/dk/raw/refs/heads/V2_5/etc/jsonschema/dk-values.json",
+    "schema_version": {
+        "major": 1,
+        "minor": 0
+    },
+    "bundles": [
+        {
+            "id": "CommonsBase_Build.VSWhere.Bundle@3.1.7",
+            "listing": {
+                "origins": [
+                    {
+                        "name": "github-vswhere",
+                        "mirrors": [
+                            "https://github.com/microsoft/vswhere/releases/download/3.1.7"
+                        ]
+                    }
+                ]
+            },
+            "assets": [
+                {
+                    "origin": "github-vswhere",
+                    "path": "vswhere.exe",
+                    "checksum": {
+                        "sha256": "c54f3b7c9164ea9a0db8641e81ecdda80c2664ef5a47c4191406f848cc07c662"
+                    },
+                    "size": 469456
+                }
+            ]
+        }
+    ]
+}

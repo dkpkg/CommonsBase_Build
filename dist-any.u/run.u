@@ -195,3 +195,15 @@ which runs:
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Ninja0-1.12.1.zip
   \test(pass)
   \dk.object(abi: "Release.Linux_arm64", value-id: "ofhgsaxo2r7rbwufyljjllz2vpwvicworoyafdf3dvoeqvx4mevua")\;
+
+## CommonsBase_Build.VSWhere@3.1.7
+
+  $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-VSWhere-3.1.7.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_arm64", value-id: "otbqxd6zg6wdusntgapbwgiak7j6sz3vr2xbmlzjpsjn7eij6h3pq")\;
+  $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-VSWhere-3.1.7.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_x86", value-id: "oey3zcwqi3bodhkdahazywr4ikitvpthpwsveinsixe3lq7zhcfxq")\;
+  $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-VSWhere-3.1.7.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "onviqvfykx7shhlkjjqm6m7pewyxsvnobb3yjfx6ao36lxqt4qkya")\;

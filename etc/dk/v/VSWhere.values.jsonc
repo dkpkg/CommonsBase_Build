@@ -1,0 +1,41 @@
+// Test: ./dk0 --trust-local-package CommonsBase_Build get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86_64 -d target/vswhere
+{
+    "$schema": "https://github.com/diskuv/dk/raw/refs/heads/V2_5/etc/jsonschema/dk-values.json",
+    "schema_version": {
+        "major": 1,
+        "minor": 0
+    },
+    "forms": [
+        {
+            "id": "CommonsBase_Build.VSWhere@3.1.7",
+            "function": {
+                "commands": [
+                    [
+                        "$(get-object CommonsBase_Std.Coreutils@0.6.0 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e coreutils.exe -f coreutils.exe)",
+                        "mkdir", "-p", "${SLOT.request}/bin"
+                    ],
+                    [
+                        "$(get-object CommonsBase_Std.Coreutils@0.6.0 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e coreutils.exe -f coreutils.exe)",
+                        "cp",
+                        "$(get-asset CommonsBase_Build.VSWhere.Bundle@3.1.7 -p vswhere.exe -f vswhere.exe)",
+                        "${SLOT.request}/bin/vswhere.exe"
+                    ]
+                ]
+            },
+            "outputs": {
+                "assets": [
+                    {
+                        "slots": [
+                            "Release.Windows_x86_64",
+                            "Release.Windows_x86",
+                            "Release.Windows_arm64"
+                        ],
+                        "paths": [
+                            "bin/vswhere.exe"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
