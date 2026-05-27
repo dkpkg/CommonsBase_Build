@@ -349,7 +349,7 @@ function CommonsBase_Build__CMake0__3_25_3.free_generate_build_install(request, 
   if p.sourcesubdir == "." or p.sourcesubdir == "./" then
     sourcedir = "s"
   else
-    sourcedir = stringdk.quote_value_shell("s/" .. p.sourcesubdir)
+    sourcedir = stringdk.quote_value_shell_literal("s/" .. p.sourcesubdir)
   end
 
   -- precommands to get source and maybe overlay
