@@ -48,7 +48,7 @@ REM   Empty value if the architecture is not supported.
 REM   In particular, use empty instead of 9491d4737000e80bcbdd7a39e9dc13c2178ff865beff7d800d6159bfc395e8fa which is checksum for HTTP 404 error.
 REM -------------------------------------
 SET DK_VER=2.4.2.180
-SET DK_CKSUM_WINDOWS_X86_64=62fc2b36d6eb38e455b5a30f2a71f1a55aab1eedb40cca3c334dcaa7339b8852
+SET DK_CKSUM_WINDOWS_X86_64=ad15cc08b43474ca893134b7ebbf04b442cd700de42769521b91d2ffba53e881
 SET DK_CKSUM_WINDOWS_X86=
 
 REM --------- Quiet Detection ---------
@@ -146,16 +146,8 @@ SET "DK_DATA_HOME="
 SET "DK_QUIET="
 SET "_DK_PATH="
 SET "_XCOPY_SWITCHES="
-REM.    Probably a Windows batch expert can fix the following:
-REM.        "C:\Users\runneradmin\AppData\Local\Programs\dk0\dk0exe-2.4.2.47-windows_x86_64\dk0.exe"  -isystem "D:\a\dk\dk\dksrc\\etc\dk\i" --cell "dk0=D:\a\dk\dk\dksrc\" --verbose -nosysinc -I etc/dk/v --trust-local-package CommonsBase_Std get-object CommonsBase_Std.S7z@25.1.0 -s Release.Windows_x86_64 -m ./7zz.exe -f target/Release.Windows_x86_64.7zz.exe
-REM.    where we added `--cell "dk0=%DK_PROJECT_DIR%"` and it garbles the command line:
-REM         FATAL: The build failed.
-REM         No command given. Try `dk0 --help`
-REM.    So we pass along forward slashes instead of backslashes.
-SET "_CELL=%DK_PROJECT_DIR%"
-SET "_CELL=%_CELL:\=/%"
 REM     Then run it
-"%DK_EXE%" %_DKEXE_OPTIONS% -isystem "%DK_PROJECT_DIR%\etc\dk\i" --cell "dk0=%_CELL%" %*
+"%DK_EXE%" %_DKEXE_OPTIONS% -isystem "%DK_PROJECT_DIR%\etc\dk\i" %*
 EXIT /B %ERRORLEVEL%
 
 REM ------ SUBROUTINE [downloadFile]
