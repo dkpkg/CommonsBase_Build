@@ -4,14 +4,8 @@
   'import'
   'github-l2'
   { {
-      'CommonsBase_Std', '2.5.202606240625', {
-        'blake2b-256:6450d810180892d71647fe63c2313d17df5ce23eef80e1050a13cf7ad4417b31',
-        'sha256:9eac4142bc0a80e5b51d3b89e83069672873ec628256afe849408ab64f954100',
-        'sha1:8c02d3bf95fe54717dd1798f292c6d6688a63faa'
-      } },
-    {
-      'CommonsBase_Std', '2.5.202606240621', {
-        'blake2b-256:48b02b747e2c11ec5aa2f488ea3888b6448c531f26a5019e29531c607a644da3',
-        'sha256:c742f2841fd4a9debf2743799328cecaac7ff6b633d378fdd5e2052e720a120e',
-        'sha1:c2eb22a174c8d3224207dba535afc13198bdaf43'
+      'CommonsBase_Std', '2.5.202605310255', {
+        'blake2b-256:00a0ae57382f532664e11aea28139f613d32495b71aa7307cf76c5fa1cdc8043',
+        'sha256:db4dd42533222dc9cd474b03268af1db20dbfb1f339ea62cfa22f78d05ea64e7',
+        'sha1:83fcd29c2ef4c17526155d4da1a475c3cee47f1b'
       } } }
