@@ -22,19 +22,19 @@ We'll also bundle lookup tables to translate ABIs into their correct paths.
 ## CommonsBase_Build.CMake0.Bundle@3.25.3
 
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-darwin_universal.zip -f ${RUNTIME}/a1
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-darwin_universal.zip
+  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-darwin_universal.zip
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_arm64.zip -f ${RUNTIME}/a2
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-linux_arm64.zip
+  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-linux_arm64.zip
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_x86_64.zip -f ${RUNTIME}/a3
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-linux_x86_64.zip
+  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-linux_x86_64.zip
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_x86.zip -f ${RUNTIME}/a4
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-linux_x86.zip
+  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-linux_x86.zip
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-x86_64.zip -f ${RUNTIME}/a5
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-3.25.3-windows-x86_64.zip
+  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-3.25.3-windows-x86_64.zip
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-i386.zip -f ${RUNTIME}/a6
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-3.25.3-windows-i386.zip
+  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-3.25.3-windows-i386.zip
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-arm64.zip -f ${RUNTIME}/a7
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3+bn-20250101000000:cmake-3.25.3-windows-arm64.zip
+  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-3.25.3-windows-arm64.zip
 
 ## CommonsBase_Build.CMake0.Build@3.25.3
 
@@ -157,7 +157,7 @@ One of the following sets of options must be provided:
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "o25m4wgdnfrkgslms7zunckw25bdyyeg67caizrhm2p4gzhdecn4q")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "ojmzr6adshdhpbwmgdoh2i7tq2s5xb7idm5ly24cozvpaal56a4ja")\;
 
 which runs:
 
@@ -176,34 +176,34 @@ which runs:
 
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "o7s5p7woasm43fqwzc45l2o2ht57bwl2z2aehy2zjix7bnqf3x32a")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "osazbl5uyb3m4yc3wbvtyvwq75ncf6kwhghsc7o7zzqkayxz6s3sa")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "oarosxthtrgkstvvchonglc2p7aj3vp7pzygjfo77xynsbdw35gzq")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "oxeoosleep7sa5lb4g3lssoegajgthfxpu2x7wd2vt2ese7wudcoq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_arm64", value-id: "o3jk5lsvsix5tbyupm6tcm2eng4jmofier7jamc2oakzpz57hrbhq")\;
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "ohbidmffyeodcth4fqhlfrlfeg5c3j7w56zzfxltqjob6vtyi3owa")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_x86_64", value-id: "otuu72s7zfjqbynrqfrebtzmrt4aegp6mxhoxxngbhs32kot2nkoa")\;
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oxtqvbjzqrrrkq6cogsb6daux34rtsm2trcp6frpjtrfz3tcxigoq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86", value-id: "ouffxf4brvk527rrf5trkjby5dpn3pp6xt3gfojng5th6djp5xbmq")\;
+  \dk.object(abi: "Release.Linux_x86", value-id: "oknuyrdqfc7wxfuzo7fag6wo67uhudvg73rlsyursa2qi7rl2vasq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "okwlfh53frfg6kerogiq2genhsschyvqgjwcyawrgfw4tdy6rodta")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oe7dmxtsno2tpawkvnjzjipdwodgnpivq4drxhzzq4lsg5qtlwqra")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_arm64", value-id: "ofhgsaxo2r7rbwufyljjllz2vpwvicworoyafdf3dvoeqvx4mevua")\;
+  \dk.object(abi: "Release.Linux_arm64", value-id: "ornywcjsnickrz5ihkprqcdsxm36qmtt5dsuy7t3tmwar4pahbaya")\;
 
 ## CommonsBase_Build.VSWhere@3.1.7
 
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "otbqxd6zg6wdusntgapbwgiak7j6sz3vr2xbmlzjpsjn7eij6h3pq")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "oxkvqdyqqkckzixie4no4qcww4xnt2nk5s7mdo6igqnbip7gsfxlq")\;
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86", value-id: "oey3zcwqi3bodhkdahazywr4ikitvpthpwsveinsixe3lq7zhcfxq")\;
+  \dk.object(abi: "Release.Windows_x86", value-id: "oemwxule77tg56amz4t2xsyjwqjc5sqnwbryimrjf2ozvgwl3hy7q")\;
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "onviqvfykx7shhlkjjqm6m7pewyxsvnobb3yjfx6ao36lxqt4qkya")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa")\;
