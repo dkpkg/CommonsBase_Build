@@ -207,3 +207,41 @@ which runs:
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-VSWhere-3.1.7.zip
   \test(pass)
   \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa")\;
+
+## CommonsBase_Build.Age@1.3.1
+
+`age` and `age-keygen` for file encryption. Tar slots use
+`CommonsBase_Std.Extract.F_Untar@0.2.0` (selective path extraction).
+
+  $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Age-1.3.1.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Age-1.3.1.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Age-1.3.1.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Age-1.3.1.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Age-1.3.1.zip
+  \test(pass)
+
+## CommonsBase_Build.GitHubCLI@2.92.0
+
+`gh` GitHub CLI. Linux slots use `CommonsBase_Std.Extract.F_Untar@0.2.0`
+(selective path extraction); Windows and Darwin slots use `get-asset`.
+
+  $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-GitHubCLI-2.92.0.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-GitHubCLI-2.92.0.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-GitHubCLI-2.92.0.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-GitHubCLI-2.92.0.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-GitHubCLI-2.92.0.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-GitHubCLI-2.92.0.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-GitHubCLI-2.92.0.zip
+  \test(pass)
+  $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-GitHubCLI-2.92.0.zip
+  \test(pass)
