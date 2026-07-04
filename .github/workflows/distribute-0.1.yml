@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - '2.5.*' # secrets are tied to version 2.5
+      - '0.1.*' # secrets are tied to version 0.1
   workflow_dispatch: # allow manual triggering from GitHub page
 
 jobs:
@@ -22,12 +22,12 @@ jobs:
       matrix:
         include:
             # curl and build-essential are part of ubuntu-24.04 CI runner, so test with:
-            #   docker run -v .:/work --workdir /work -it ubuntu:24.04 bash -c "apt update && apt install -y curl build-essential && sh ./dk0 distribute --actual-in-place --library CommonsBase_Build@2.5.99 part1 dist-any.u"
-            #   docker run -v .:/work --workdir /work -it quay.io/pypa/manylinux_2_28_x86_64:2026.04.08-5 sh ./dk0 distribute --actual-in-place --library CommonsBase_Build@2.5.99 part1 dist-any.u
+            #   docker run -v .:/work --workdir /work -it ubuntu:24.04 bash -c "apt update && apt install -y curl build-essential && sh ./dk0 distribute --actual-in-place --library CommonsBase_Build@0.1.99 part1 dist/any.u"
+            #   docker run -v .:/work --workdir /work -it quay.io/pypa/manylinux_2_28_x86_64:2026.04.08-5 sh ./dk0 distribute --actual-in-place --library CommonsBase_Build@0.1.99 part1 dist/any.u
           - runs-on: ubuntu-24.04 # Linux is cheapest and quickest to boot in Github Actions
-            distscript: dist-any.u
+            distscript: dist/any.u
             # an image is strictly unnecessary since this package is cross-platform.
-            # but ... manylinux_2_28_x86_64 produces lib64/ for CMake in dist-any.u/ so good test.
+            # but ... manylinux_2_28_x86_64 produces lib64/ for CMake in dist/ so good test.
             #image: conanio/gcc8:1.61.0 # glibc 2.27 + gcc 8.4.0. system gcc will not be needed once GCC bootstrapped in dk0.
             #image: conanio/gcc9:1.61.0 # glibc 2.30 + gcc 9.2.1: old glibc is highly compatible and works with Node v24.14.0; system gcc will not be needed once GCC bootstrapped in dk0.
             #image: conanio/gcc11:1.63.0 # glibc 2.31 + gcc 11.1.0: old glibc is Debian 11 LTS compatible and works with Node v24.14.0; system gcc will not be needed once GCC bootstrapped in dk0.
@@ -50,13 +50,12 @@ jobs:
         uses: diskuv/dk-distribute@v3
         with:
             standalone: true
-            pubkey: ${{ secrets.distribute_2_5_pubkey }}
-            seckey: ${{ secrets.distribute_2_5_seckey }}
+            pubkey: ${{ secrets.distribute_0_1_pubkey }}
+            seckey: ${{ secrets.distribute_0_1_seckey }}
             options: -nosysinc
             store: release
             distscript: ${{ matrix.distscript }}
             execution-abi: ${{ matrix.execution-abi }}
-            experimental-dk-owner: ${{ github.repository_owner == 'dkpkg' && 'diskuv' || github.repository_owner }}
             #   Use MlFront HEAD when CI build is not from a tag
             experimental-mlfront-ref: ${{ github.ref_type != 'tag' && 'HEAD' }}
             #   Uncomment when testing MlFront
