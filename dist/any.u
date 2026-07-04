@@ -1,6 +1,6 @@
 # Distribution for CommonsBase_Build
 
-## CommonsBase_Build.Apparatus@0.1.0
+## CommonsBase_Build.Apparatus@1.0.0
 
 We'll bundle a small CMake project.
   % unified.asset { name="HelloWorld", dir="hw" }
@@ -150,7 +150,7 @@ One of the following sets of options must be provided:
 ### Examples
 
   $ post-object CommonsBase_Build.CMake0.F_Build@3.25.3 -d t/o/somewhere/
-  > assetmodver=CommonsBase_Build.Apparatus.HelloWorld@0.1.0
+  > assetmodver=CommonsBase_Build.Apparatus.HelloWorld@1.0.0
   > assetpath=hw
   > gargs[]=-DCMAKE_BUILD_TYPE=Release
   > bargs[]=--config bargs[]=Release
