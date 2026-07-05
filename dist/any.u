@@ -138,7 +138,7 @@ One of the following sets of options must be provided:
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "ojmzr6adshdhpbwmgdoh2i7tq2s5xb7idm5ly24cozvpaal56a4ja")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oi3jvicq74t5qojnntwu63ajrcsbo6kbvbvvyeswbpes5it4y2efq", byteSize: "3371")\;
 
 which runs:
 
@@ -157,37 +157,37 @@ which runs:
 
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "osazbl5uyb3m4yc3wbvtyvwq75ncf6kwhghsc7o7zzqkayxz6s3sa")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "osazbl5uyb3m4yc3wbvtyvwq75ncf6kwhghsc7o7zzqkayxz6s3sa", byteSize: "263279")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "oxeoosleep7sa5lb4g3lssoegajgthfxpu2x7wd2vt2ese7wudcoq")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "oxeoosleep7sa5lb4g3lssoegajgthfxpu2x7wd2vt2ese7wudcoq", byteSize: "285058")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_arm64", value-id: "ohbidmffyeodcth4fqhlfrlfeg5c3j7w56zzfxltqjob6vtyi3owa")\;
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "ohbidmffyeodcth4fqhlfrlfeg5c3j7w56zzfxltqjob6vtyi3owa", byteSize: "290354")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oxtqvbjzqrrrkq6cogsb6daux34rtsm2trcp6frpjtrfz3tcxigoq")\;
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oxtqvbjzqrrrkq6cogsb6daux34rtsm2trcp6frpjtrfz3tcxigoq", byteSize: "290354")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86", value-id: "oknuyrdqfc7wxfuzo7fag6wo67uhudvg73rlsyursa2qi7rl2vasq")\;
+  \dk.object(abi: "Release.Linux_x86", value-id: "oknuyrdqfc7wxfuzo7fag6wo67uhudvg73rlsyursa2qi7rl2vasq", byteSize: "3469045")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "oe7dmxtsno2tpawkvnjzjipdwodgnpivq4drxhzzq4lsg5qtlwqra")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oe7dmxtsno2tpawkvnjzjipdwodgnpivq4drxhzzq4lsg5qtlwqra", byteSize: "3480398")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_arm64", value-id: "ornywcjsnickrz5ihkprqcdsxm36qmtt5dsuy7t3tmwar4pahbaya")\;
+  \dk.object(abi: "Release.Linux_arm64", value-id: "ornywcjsnickrz5ihkprqcdsxm36qmtt5dsuy7t3tmwar4pahbaya", byteSize: "3435752")\;
 
 ## CommonsBase_Build.VSWhere@3.1.7
 
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "oxkvqdyqqkckzixie4no4qcww4xnt2nk5s7mdo6igqnbip7gsfxlq")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "oxkvqdyqqkckzixie4no4qcww4xnt2nk5s7mdo6igqnbip7gsfxlq", byteSize: "237567")\;
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86", value-id: "oemwxule77tg56amz4t2xsyjwqjc5sqnwbryimrjf2ozvgwl3hy7q")\;
+  \dk.object(abi: "Release.Windows_x86", value-id: "oemwxule77tg56amz4t2xsyjwqjc5sqnwbryimrjf2ozvgwl3hy7q", byteSize: "237567")\;
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa", byteSize: "237567")\;
 
 ## CommonsBase_Build.Age@1.3.1
 
@@ -196,14 +196,19 @@ which runs:
 
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Age-1.3.1.zip
   \test(pass)
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "ocinmn4efyttcgzd3nfjdlcabpqa4xd5pemspntar7dvvykpyhd7q", byteSize: "6353496")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Age-1.3.1.zip
   \test(pass)
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oqigtrqj5x6h7m7atnboqk5nkkyi2pckq7lxqqd37pnxadulympwq")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Age-1.3.1.zip
   \test(pass)
+  \dk.object(abi: "Release.Linux_arm64", value-id: "oxdf5slo6jwu2xh7uwms5e53v5rygcwdfw7unepxj7pmw7gvsjr2q", byteSize: "5591591")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Age-1.3.1.zip
   \test(pass)
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "ouibobdqdyee22fy3qbutgqp7dzvfv3n4jrtlnvs2cy445hrd3zqq", byteSize: "6046132")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Age-1.3.1.zip
   \test(pass)
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "oxuucsjxxuvenghhwfzqjkl4h3ffbqxmswx7emoxxi7ip4mxd5jua", byteSize: "5692339")\;
 
 ## CommonsBase_Build.GitHubCLI@2.92.0
 
@@ -212,17 +217,25 @@ which runs:
 
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-GitHubCLI-2.92.0.zip
   \test(pass)
+  \dk.object(abi: "Release.Windows_x86", value-id: "ocpywxf6liq3csto4tgqigmxr3kflsl3uxbhxve7ltbpcsrwo3noa", byteSize: "13763950")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-GitHubCLI-2.92.0.zip
   \test(pass)
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "oi3dff2qkoqrldcappnh2fqbcr6l7rnij3e7n23ec6dzrrgj5wkiq", byteSize: "14386129")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-GitHubCLI-2.92.0.zip
   \test(pass)
+  \dk.object(abi: "Release.Windows_arm64", value-id: "o7vfhque36ksymefkgozdvtaxcmosjehmppc2dujdu7ogaasfbbja", byteSize: "12781411")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-GitHubCLI-2.92.0.zip
   \test(pass)
+  \dk.object(abi: "Release.Linux_x86", value-id: "omyuzbgl4x6a64qqndlvims6tgdjf463doshgrz2kf3ixcmiq3ora", byteSize: "13296562")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-GitHubCLI-2.92.0.zip
   \test(pass)
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "o5xkvyq3g5rjzc4btr3fvdaynly2ykzgv36gajhy6yjijbv3ztfqq", byteSize: "14185401")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-GitHubCLI-2.92.0.zip
   \test(pass)
+  \dk.object(abi: "Release.Linux_arm64", value-id: "ozafifmsmmg54k7quqewajhhtaeeylzzz5t23qdklqxgtw3rlrh5a", byteSize: "12753815")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-GitHubCLI-2.92.0.zip
   \test(pass)
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "ojglgqicuqtb7nxolvgiftkciyd5ehxhkuvli7t5vqjufqvq36zaa", byteSize: "14654805")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-GitHubCLI-2.92.0.zip
   \test(pass)
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "oxrguyczf5kqtbsdy66kqua2l23jxmbqa5eyuoohm7pdsc53tdtoa", byteSize: "13206150")\;
