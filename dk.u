@@ -84,3 +84,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         'blake2b-256:900b27b1b73e76e5f1c7d95c8484b4457245ec430e05c89c443705622abaa6b4', 'sha256:7e4e8b645e75a415f78be7361f928a6be1cc092d133f13406e58f388dbf988df',
         'sha1:757c997d4893f1c93e53df5578a4105c294a5713'
       } } }
+
+## Assets
+
+### CommonsBase_Build.Apparatus@0.1.0
+
+  % unified.asset { name="HelloWorld", dir="dist/hw" }
+  'asset'
+  '790'
+  { 'sha256:847c39531962e987ba69983babf15f244735f3d566d4fdcaa9a94c038484415d' }
+  % unified.asset { name="LookupCMake3_25_3", dir="dist/lookup-cmake-3-25-3" }
+  'asset'
+  '1492'
+  { 'sha256:086addb0c98ad7d7ca691e33cd7ba3ac405990d928f0377c373d6a115d685bdf' }
+  % unified.asset { name="LookupCMakeBin", dir="dist/lookup-cmake-bin" }
+  'asset'
+  '1350'
+  { 'sha256:2775a40cc3860fd3850a50797372a894c7eca1bf14e1be90024dbce2236b3a84' }

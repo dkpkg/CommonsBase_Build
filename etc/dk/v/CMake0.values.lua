@@ -331,8 +331,8 @@ function rules.F_Build(command, request)
     p.absninjaexe_win32 = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s ${SLOTNAME.Release.execution_abi} -m ./ninja.exe -f ninja.exe -e '*')"
     p.absninjaexe_unix = "$(--path=absnative get-object CommonsBase_Build.Ninja0@1.12.1 -s ${SLOTNAME.Release.execution_abi} -m ./ninja.exe -f ninja -e '*')"
 
-    local str_cmakezipname = "$(get-asset CommonsBase_Build.Apparatus.LookupCMake3_25_3@0.1.0 -p lookup-cmake-3-25-3 -m ./${SLOTNAME.execution_abi}.txt)" -- "cmake-3.25.3-windows-x86_64.zip" --
-    local str_cmakebin = "$(get-asset CommonsBase_Build.Apparatus.LookupCMakeBin@0.1.0 -p lookup-cmake-bin -m ./${SLOTNAME.execution_abi}.txt)" -- "bin" --
+    local str_cmakezipname = "$(get-asset CommonsBase_Build.Apparatus.LookupCMake3_25_3@0.1.0 -p dist/lookup-cmake-3-25-3 -m ./${SLOTNAME.execution_abi}.txt)" -- "cmake-3.25.3-windows-x86_64.zip" --
+    local str_cmakebin = "$(get-asset CommonsBase_Build.Apparatus.LookupCMakeBin@0.1.0 -p dist/lookup-cmake-bin -m ./${SLOTNAME.execution_abi}.txt)" -- "bin" --
     local abspath_cmakedir = "$(--path=absnative get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p " .. str_cmakezipname .. " -n 1 -d : -e 'bin/*' -e 'CMake.app/Contents/bin/*')"
     p.cmakebin = abspath_cmakedir .. "${/}" .. str_cmakebin
     p.cmakeexe = p.cmakebin .. "${/}cmake${.exe.execution}"
