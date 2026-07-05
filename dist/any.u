@@ -199,7 +199,7 @@ which runs:
   \dk.object(abi: "Release.Windows_x86_64", value-id: "ocinmn4efyttcgzd3nfjdlcabpqa4xd5pemspntar7dvvykpyhd7q", byteSize: "6353496")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Age-1.3.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "oqigtrqj5x6h7m7atnboqk5nkkyi2pckq7lxqqd37pnxadulympwq")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oqigtrqj5x6h7m7atnboqk5nkkyi2pckq7lxqqd37pnxadulympwq", byteSize: "6057877")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Age-1.3.1.zip
   \test(pass)
   \dk.object(abi: "Release.Linux_arm64", value-id: "oxdf5slo6jwu2xh7uwms5e53v5rygcwdfw7unepxj7pmw7gvsjr2q", byteSize: "5591591")\;
