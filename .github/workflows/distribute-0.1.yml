@@ -53,7 +53,10 @@ jobs:
             pubkey: ${{ secrets.distribute_0_1_pubkey }}
             seckey: ${{ secrets.distribute_0_1_seckey }}
             options: -nosysinc
-            store: release
+            # store: none for this first 2.4.2.249 release so CI does NOT restore the
+            # stale 0.1.20260705075056 objects (old value-id formula); build fresh so the
+            # actual matches the regenerated dist/any.u. Restore to `release` afterward.
+            store: none
             distscript: ${{ matrix.distscript }}
             execution-abi: ${{ matrix.execution-abi }}
             #   Use MlFront HEAD when CI build is not from a tag
