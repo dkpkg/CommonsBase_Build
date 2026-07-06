@@ -48,32 +48,44 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   'import'
   'github-l2'
   { {
-      'CommonsBase_Std', '2.6.20260705103327', {
-        'blake2b-256:ef622d15f7fc08b9b30beb5fb767790c213f6e7d08aa266f17b6bae4b7a3f7c0',
-        'sha256:13cba7aa2844019b1acff5ee2ac929fb3cb9193fbfd684412ccc4563424a6d8c',
-        'sha1:44a9a04a3339a99b3c326907d69a689aa103f135'
+      'CommonsBase_Std', '2.6.20260706021729', {
+        'blake2b-256:9d442eb18b3cce1667fbe8c3585825aafb3384aa6df825740cb6d30df41fde59',
+        'sha256:b8c8a247672604c9487de530cda33ac4e13bf586b6ec1cc47c4562fe879a4897',
+        'sha1:daa9de5e3ed097e8259f973455a722056d84cba6'
       } },
     {
       'CommonsBase_Std', '2.6.20260705051043', {
         'blake2b-256:156d1836ac816b113880ce282f686b35d9c75e3cb4d69523313f85983ba12d4a',
         'sha256:105ff8e83d42da3aaa79f37540303f3b3db4cd237cecfd80739387c28c866564',
         'sha1:f3e1dac5323d0dca4f7df6c77564051a99cd6dac'
+      } },
+    {
+      'CommonsBase_Std', '2.6.20260705103327', {
+        'blake2b-256:ef622d15f7fc08b9b30beb5fb767790c213f6e7d08aa266f17b6bae4b7a3f7c0',
+        'sha256:13cba7aa2844019b1acff5ee2ac929fb3cb9193fbfd684412ccc4563424a6d8c',
+        'sha1:44a9a04a3339a99b3c326907d69a689aa103f135'
       } } }
 
   %% import { type="github-l2", repo="dkpkg/CommonsBase_Std" }
   'import'
   'github-l2'
   { {
-      'CommonsBase_Std', '2.6.20260705103327', {
-        'blake2b-256:ef622d15f7fc08b9b30beb5fb767790c213f6e7d08aa266f17b6bae4b7a3f7c0',
-        'sha256:13cba7aa2844019b1acff5ee2ac929fb3cb9193fbfd684412ccc4563424a6d8c',
-        'sha1:44a9a04a3339a99b3c326907d69a689aa103f135'
+      'CommonsBase_Std', '2.6.20260706021729', {
+        'blake2b-256:9d442eb18b3cce1667fbe8c3585825aafb3384aa6df825740cb6d30df41fde59',
+        'sha256:b8c8a247672604c9487de530cda33ac4e13bf586b6ec1cc47c4562fe879a4897',
+        'sha1:daa9de5e3ed097e8259f973455a722056d84cba6'
       } },
     {
       'CommonsBase_Std', '2.6.20260705051043', {
         'blake2b-256:156d1836ac816b113880ce282f686b35d9c75e3cb4d69523313f85983ba12d4a',
         'sha256:105ff8e83d42da3aaa79f37540303f3b3db4cd237cecfd80739387c28c866564',
         'sha1:f3e1dac5323d0dca4f7df6c77564051a99cd6dac'
+      } },
+    {
+      'CommonsBase_Std', '2.6.20260705103327', {
+        'blake2b-256:ef622d15f7fc08b9b30beb5fb767790c213f6e7d08aa266f17b6bae4b7a3f7c0',
+        'sha256:13cba7aa2844019b1acff5ee2ac929fb3cb9193fbfd684412ccc4563424a6d8c',
+        'sha1:44a9a04a3339a99b3c326907d69a689aa103f135'
       } } }
 
 ## Assets

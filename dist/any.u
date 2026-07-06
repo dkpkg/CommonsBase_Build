@@ -3,19 +3,26 @@
 ## CommonsBase_Build.CMake0.Bundle@3.25.3
 
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-darwin_universal.zip -f ${RUNTIME}/a1
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-darwin_universal.zip
+  \test(pass)
+  \dk.asset(path: "cmake-darwin_universal.zip", value-id: "ajjqc36qkgaflit2qxg2ayr5gjfiekyaikkgaxiwtvr463hmlg6ka", byteSize: "80161981")\;
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_arm64.zip -f ${RUNTIME}/a2
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-linux_arm64.zip
+  \test(pass)
+  \dk.asset(path: "cmake-linux_arm64.zip", value-id: "a6ccbymavku5pjrg2giaozjc35lwxpa4eq6nw5qv3uf2hnpkhqilq", byteSize: "44899058")\;
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_x86_64.zip -f ${RUNTIME}/a3
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-linux_x86_64.zip
+  \test(pass)
+  \dk.asset(path: "cmake-linux_x86_64.zip", value-id: "a4og42sdel4bzx763wqmhjnqe2feiql6njkgexflbzlqr7vmdggca", byteSize: "45788799")\;
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-linux_x86.zip -f ${RUNTIME}/a4
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-linux_x86.zip
+  \test(pass)
+  \dk.asset(path: "cmake-linux_x86.zip", value-id: "am3qa2663r76v226xjftixsgerl3j4bcujq7vyh4est7fye2ojisa", byteSize: "44946942")\;
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-x86_64.zip -f ${RUNTIME}/a5
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-3.25.3-windows-x86_64.zip
+  \test(pass)
+  \dk.asset(path: "cmake-3.25.3-windows-x86_64.zip", value-id: "ap4puij6vpw64crkhh6bgsyfgporhjw4h34tmhgfxyzeeqm77ngma", byteSize: "41490629")\;
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-i386.zip -f ${RUNTIME}/a6
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-3.25.3-windows-i386.zip
+  \test(pass)
+  \dk.asset(path: "cmake-3.25.3-windows-i386.zip", value-id: "a6hznijbmw57hikmvdc35dbdyk7bnwdxt2feoowe6tx6xpwpwsrfa", byteSize: "38114288")\;
   $ get-asset CommonsBase_Build.CMake0.Bundle@3.25.3 -p cmake-3.25.3-windows-arm64.zip -f ${RUNTIME}/a7
-  \test(pass)\;asset:CommonsBase_Build.CMake0.Bundle@3.25.3:cmake-3.25.3-windows-arm64.zip
+  \test(pass)
+  \dk.asset(path: "cmake-3.25.3-windows-arm64.zip", value-id: "azdpj6lgvg2dz5nu24r7pgfdxknwosrso75wjibkdh4q52iwho5zq", byteSize: "40937837")\;
 
 ## CommonsBase_Build.CMake0.Build@3.25.3
 
@@ -138,7 +145,7 @@ One of the following sets of options must be provided:
   > iargs[]=--config iargs[]=Release
   > outexe[]=bin/hello
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "oi3jvicq74t5qojnntwu63ajrcsbo6kbvbvvyeswbpes5it4y2efq", byteSize: "3371")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oi3jvicq74t5qojnntwu63ajrcsbo6kbvbvvyeswbpes5it4y2efq")\;
 
 which runs:
 
@@ -157,37 +164,37 @@ which runs:
 
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "osazbl5uyb3m4yc3wbvtyvwq75ncf6kwhghsc7o7zzqkayxz6s3sa", byteSize: "263279")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "osazbl5uyb3m4yc3wbvtyvwq75ncf6kwhghsc7o7zzqkayxz6s3sa")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "oxeoosleep7sa5lb4g3lssoegajgthfxpu2x7wd2vt2ese7wudcoq", byteSize: "285058")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "oxeoosleep7sa5lb4g3lssoegajgthfxpu2x7wd2vt2ese7wudcoq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_arm64", value-id: "ohbidmffyeodcth4fqhlfrlfeg5c3j7w56zzfxltqjob6vtyi3owa", byteSize: "290354")\;
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "ohbidmffyeodcth4fqhlfrlfeg5c3j7w56zzfxltqjob6vtyi3owa")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oxtqvbjzqrrrkq6cogsb6daux34rtsm2trcp6frpjtrfz3tcxigoq", byteSize: "290354")\;
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oxtqvbjzqrrrkq6cogsb6daux34rtsm2trcp6frpjtrfz3tcxigoq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86", value-id: "oknuyrdqfc7wxfuzo7fag6wo67uhudvg73rlsyursa2qi7rl2vasq", byteSize: "3469045")\;
+  \dk.object(abi: "Release.Linux_x86", value-id: "oknuyrdqfc7wxfuzo7fag6wo67uhudvg73rlsyursa2qi7rl2vasq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "oe7dmxtsno2tpawkvnjzjipdwodgnpivq4drxhzzq4lsg5qtlwqra", byteSize: "3480398")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oe7dmxtsno2tpawkvnjzjipdwodgnpivq4drxhzzq4lsg5qtlwqra")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_arm64", value-id: "ornywcjsnickrz5ihkprqcdsxm36qmtt5dsuy7t3tmwar4pahbaya", byteSize: "3435752")\;
+  \dk.object(abi: "Release.Linux_arm64", value-id: "ornywcjsnickrz5ihkprqcdsxm36qmtt5dsuy7t3tmwar4pahbaya")\;
 
 ## CommonsBase_Build.VSWhere@3.1.7
 
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "oxkvqdyqqkckzixie4no4qcww4xnt2nk5s7mdo6igqnbip7gsfxlq", byteSize: "237567")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "oxkvqdyqqkckzixie4no4qcww4xnt2nk5s7mdo6igqnbip7gsfxlq")\;
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86", value-id: "oemwxule77tg56amz4t2xsyjwqjc5sqnwbryimrjf2ozvgwl3hy7q", byteSize: "237567")\;
+  \dk.object(abi: "Release.Windows_x86", value-id: "oemwxule77tg56amz4t2xsyjwqjc5sqnwbryimrjf2ozvgwl3hy7q")\;
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa", byteSize: "237567")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa")\;
 
 ## CommonsBase_Build.Age@1.3.1
 
@@ -196,19 +203,63 @@ which runs:
 
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Age-1.3.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "ocinmn4efyttcgzd3nfjdlcabpqa4xd5pemspntar7dvvykpyhd7q", byteSize: "6353496")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "ocinmn4efyttcgzd3nfjdlcabpqa4xd5pemspntar7dvvykpyhd7q")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Age-1.3.1.zip
-  \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "oqigtrqj5x6h7m7atnboqk5nkkyi2pckq7lxqqd37pnxadulympwq", byteSize: "6057877")\;
+  [error 27d1a9c1]: Could not run unified shell command.
+  
+      ╭──▶ etc/dk/v/Age.values.jsonc:29.16-29.23
+      │
+   29 │              "bin/age",
+      •               ┬──────
+      •               ╰╸ Could not build `CommonsBase_Build.Age@1.3.1+bn-20250101000000 -s Release.Linux_x86_64` because it did not create the path `bin/age` in ${SLOT.Release.Linux_x86_64}.
+      •
+      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.Age@1....`
+      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
+  ────╯
+  
+  [exit 1]
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Age-1.3.1.zip
-  \test(pass)
-  \dk.object(abi: "Release.Linux_arm64", value-id: "oxdf5slo6jwu2xh7uwms5e53v5rygcwdfw7unepxj7pmw7gvsjr2q", byteSize: "5591591")\;
+  [error 27d1a9c1]: Could not run unified shell command.
+  
+      ╭──▶ etc/dk/v/Age.values.jsonc:29.16-29.23
+      │
+   29 │              "bin/age",
+      •               ┬──────
+      •               ╰╸ Could not build `CommonsBase_Build.Age@1.3.1+bn-20250101000000 -s Release.Linux_arm64` because it did not create the path `bin/age` in ${SLOT.Release.Linux_arm64}.
+      •
+      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.Age@1....`
+      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
+  ────╯
+  
+  [exit 1]
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Age-1.3.1.zip
-  \test(pass)
-  \dk.object(abi: "Release.Darwin_x86_64", value-id: "ouibobdqdyee22fy3qbutgqp7dzvfv3n4jrtlnvs2cy445hrd3zqq", byteSize: "6046132")\;
+  [error 27d1a9c1]: Could not run unified shell command.
+  
+      ╭──▶ etc/dk/v/Age.values.jsonc:29.16-29.23
+      │
+   29 │              "bin/age",
+      •               ┬──────
+      •               ╰╸ Could not build `CommonsBase_Build.Age@1.3.1+bn-20250101000000 -s Release.Darwin_x86_64` because it did not create the path `bin/age` in ${SLOT.Release.Darwin_x86_64}.
+      •
+      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.Age@1....`
+      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
+  ────╯
+  
+  [exit 1]
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Age-1.3.1.zip
-  \test(pass)
-  \dk.object(abi: "Release.Darwin_arm64", value-id: "oxuucsjxxuvenghhwfzqjkl4h3ffbqxmswx7emoxxi7ip4mxd5jua", byteSize: "5692339")\;
+  [error 27d1a9c1]: Could not run unified shell command.
+  
+      ╭──▶ etc/dk/v/Age.values.jsonc:29.16-29.23
+      │
+   29 │              "bin/age",
+      •               ┬──────
+      •               ╰╸ Could not build `CommonsBase_Build.Age@1.3.1+bn-20250101000000 -s Release.Darwin_arm64` because it did not create the path `bin/age` in ${SLOT.Release.Darwin_arm64}.
+      •
+      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.Age@1....`
+      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
+  ────╯
+  
+  [exit 1]
 
 ## CommonsBase_Build.GitHubCLI@2.92.0
 
@@ -217,25 +268,58 @@ which runs:
 
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86", value-id: "ocpywxf6liq3csto4tgqigmxr3kflsl3uxbhxve7ltbpcsrwo3noa", byteSize: "13763950")\;
+  \dk.object(abi: "Release.Windows_x86", value-id: "ocpywxf6liq3csto4tgqigmxr3kflsl3uxbhxve7ltbpcsrwo3noa")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "oi3dff2qkoqrldcappnh2fqbcr6l7rnij3e7n23ec6dzrrgj5wkiq", byteSize: "14386129")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "oi3dff2qkoqrldcappnh2fqbcr6l7rnij3e7n23ec6dzrrgj5wkiq")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "o7vfhque36ksymefkgozdvtaxcmosjehmppc2dujdu7ogaasfbbja", byteSize: "12781411")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "o7vfhque36ksymefkgozdvtaxcmosjehmppc2dujdu7ogaasfbbja")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-GitHubCLI-2.92.0.zip
-  \test(pass)
-  \dk.object(abi: "Release.Linux_x86", value-id: "omyuzbgl4x6a64qqndlvims6tgdjf463doshgrz2kf3ixcmiq3ora", byteSize: "13296562")\;
+  [error 27d1a9c1]: Could not run unified shell command.
+  
+      ╭──▶ etc/dk/v/GitHubCLI.values.jsonc:32.16-32.22
+      │
+   32 │              "bin/gh"
+      •               ┬─────
+      •               ╰╸ Could not build `CommonsBase_Build.GitHubCLI@2.92.0+bn-20250101000000 -s Release.Linux_x86` because it did not create the path `bin/gh` in ${SLOT.Release.Linux_x86}.
+      •
+      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.GitHub...`
+      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
+  ────╯
+  
+  [exit 1]
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-GitHubCLI-2.92.0.zip
-  \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "o5xkvyq3g5rjzc4btr3fvdaynly2ykzgv36gajhy6yjijbv3ztfqq", byteSize: "14185401")\;
+  [error 27d1a9c1]: Could not run unified shell command.
+  
+      ╭──▶ etc/dk/v/GitHubCLI.values.jsonc:32.16-32.22
+      │
+   32 │              "bin/gh"
+      •               ┬─────
+      •               ╰╸ Could not build `CommonsBase_Build.GitHubCLI@2.92.0+bn-20250101000000 -s Release.Linux_x86_64` because it did not create the path `bin/gh` in ${SLOT.Release.Linux_x86_64}.
+      •
+      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.GitHub...`
+      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
+  ────╯
+  
+  [exit 1]
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-GitHubCLI-2.92.0.zip
-  \test(pass)
-  \dk.object(abi: "Release.Linux_arm64", value-id: "ozafifmsmmg54k7quqewajhhtaeeylzzz5t23qdklqxgtw3rlrh5a", byteSize: "12753815")\;
+  [error 27d1a9c1]: Could not run unified shell command.
+  
+      ╭──▶ etc/dk/v/GitHubCLI.values.jsonc:32.16-32.22
+      │
+   32 │              "bin/gh"
+      •               ┬─────
+      •               ╰╸ Could not build `CommonsBase_Build.GitHubCLI@2.92.0+bn-20250101000000 -s Release.Linux_arm64` because it did not create the path `bin/gh` in ${SLOT.Release.Linux_arm64}.
+      •
+      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.GitHub...`
+      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
+  ────╯
+  
+  [exit 1]
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_x86_64", value-id: "ojglgqicuqtb7nxolvgiftkciyd5ehxhkuvli7t5vqjufqvq36zaa", byteSize: "14654805")\;
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "ojglgqicuqtb7nxolvgiftkciyd5ehxhkuvli7t5vqjufqvq36zaa")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_arm64", value-id: "oxrguyczf5kqtbsdy66kqua2l23jxmbqa5eyuoohm7pdsc53tdtoa", byteSize: "13206150")\;
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "oxrguyczf5kqtbsdy66kqua2l23jxmbqa5eyuoohm7pdsc53tdtoa")\;
