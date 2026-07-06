@@ -203,63 +203,19 @@ which runs:
 
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Age-1.3.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "ocinmn4efyttcgzd3nfjdlcabpqa4xd5pemspntar7dvvykpyhd7q")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "ol42sancrjf36auqfxvqoy5qkltbryjavnjkcorxt6p4sl47mcnua")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Age-1.3.1.zip
-  [error 27d1a9c1]: Could not run unified shell command.
-  
-      ╭──▶ etc/dk/v/Age.values.jsonc:29.16-29.23
-      │
-   29 │              "bin/age",
-      •               ┬──────
-      •               ╰╸ Could not build `CommonsBase_Build.Age@1.3.1+bn-20250101000000 -s Release.Linux_x86_64` because it did not create the path `bin/age` in ${SLOT.Release.Linux_x86_64}.
-      •
-      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.Age@1....`
-      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
-  ────╯
-  
-  [exit 1]
+  \test(pass)
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oedpzmnqk4ya45djudefpsco5eo3ts6k5ojpyb7fdblqe3mid6gfq")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Age-1.3.1.zip
-  [error 27d1a9c1]: Could not run unified shell command.
-  
-      ╭──▶ etc/dk/v/Age.values.jsonc:29.16-29.23
-      │
-   29 │              "bin/age",
-      •               ┬──────
-      •               ╰╸ Could not build `CommonsBase_Build.Age@1.3.1+bn-20250101000000 -s Release.Linux_arm64` because it did not create the path `bin/age` in ${SLOT.Release.Linux_arm64}.
-      •
-      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.Age@1....`
-      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
-  ────╯
-  
-  [exit 1]
+  \test(pass)
+  \dk.object(abi: "Release.Linux_arm64", value-id: "omd4qexkvhw6f65uibqzjzuisfaie37rdcs37rzzhanuj2bn26vza")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Age-1.3.1.zip
-  [error 27d1a9c1]: Could not run unified shell command.
-  
-      ╭──▶ etc/dk/v/Age.values.jsonc:29.16-29.23
-      │
-   29 │              "bin/age",
-      •               ┬──────
-      •               ╰╸ Could not build `CommonsBase_Build.Age@1.3.1+bn-20250101000000 -s Release.Darwin_x86_64` because it did not create the path `bin/age` in ${SLOT.Release.Darwin_x86_64}.
-      •
-      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.Age@1....`
-      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
-  ────╯
-  
-  [exit 1]
+  \test(pass)
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "o2ikk5lhs3gd3qo3lt2jjxa4l23ks2folvwcdcahhqbnj7assxsza")\;
   $ get-object CommonsBase_Build.Age@1.3.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Age-1.3.1.zip
-  [error 27d1a9c1]: Could not run unified shell command.
-  
-      ╭──▶ etc/dk/v/Age.values.jsonc:29.16-29.23
-      │
-   29 │              "bin/age",
-      •               ┬──────
-      •               ╰╸ Could not build `CommonsBase_Build.Age@1.3.1+bn-20250101000000 -s Release.Darwin_arm64` because it did not create the path `bin/age` in ${SLOT.Release.Darwin_arm64}.
-      •
-      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.Age@1....`
-      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
-  ────╯
-  
-  [exit 1]
+  \test(pass)
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "oy2e27afox5clyexvrhqjotw7rx3ybxblrnuvfhvkfodijtcdwcrq")\;
 
 ## CommonsBase_Build.GitHubCLI@2.92.0
 
@@ -268,58 +224,25 @@ which runs:
 
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86", value-id: "ocpywxf6liq3csto4tgqigmxr3kflsl3uxbhxve7ltbpcsrwo3noa")\;
+  \dk.object(abi: "Release.Windows_x86", value-id: "ogku2dt3tmegyntsw6mix2eiacfhhjwvl66o52mwrcf4epo5szs2q")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "oi3dff2qkoqrldcappnh2fqbcr6l7rnij3e7n23ec6dzrrgj5wkiq")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "okqvx6ezhymtqk4etjltl3m3ik3tmltrumafi762ybpkodanjpvqa")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "o7vfhque36ksymefkgozdvtaxcmosjehmppc2dujdu7ogaasfbbja")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "o4hreoiypmsplbsuujhuqdt7qrevwnywgtbuut66tzol44326r6sa")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-GitHubCLI-2.92.0.zip
-  [error 27d1a9c1]: Could not run unified shell command.
-  
-      ╭──▶ etc/dk/v/GitHubCLI.values.jsonc:32.16-32.22
-      │
-   32 │              "bin/gh"
-      •               ┬─────
-      •               ╰╸ Could not build `CommonsBase_Build.GitHubCLI@2.92.0+bn-20250101000000 -s Release.Linux_x86` because it did not create the path `bin/gh` in ${SLOT.Release.Linux_x86}.
-      •
-      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.GitHub...`
-      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
-  ────╯
-  
-  [exit 1]
+  \test(pass)
+  \dk.object(abi: "Release.Linux_x86", value-id: "ot77eu32ew4i7m54cdtq3tw56livw326iqohx3yurvqotgfuljd3q")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-GitHubCLI-2.92.0.zip
-  [error 27d1a9c1]: Could not run unified shell command.
-  
-      ╭──▶ etc/dk/v/GitHubCLI.values.jsonc:32.16-32.22
-      │
-   32 │              "bin/gh"
-      •               ┬─────
-      •               ╰╸ Could not build `CommonsBase_Build.GitHubCLI@2.92.0+bn-20250101000000 -s Release.Linux_x86_64` because it did not create the path `bin/gh` in ${SLOT.Release.Linux_x86_64}.
-      •
-      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.GitHub...`
-      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
-  ────╯
-  
-  [exit 1]
+  \test(pass)
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "ou2c665d5at454qnljnaa66k232x2syjon76oqckiy6wtkblopz2a")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-GitHubCLI-2.92.0.zip
-  [error 27d1a9c1]: Could not run unified shell command.
-  
-      ╭──▶ etc/dk/v/GitHubCLI.values.jsonc:32.16-32.22
-      │
-   32 │              "bin/gh"
-      •               ┬─────
-      •               ╰╸ Could not build `CommonsBase_Build.GitHubCLI@2.92.0+bn-20250101000000 -s Release.Linux_arm64` because it did not create the path `bin/gh` in ${SLOT.Release.Linux_arm64}.
-      •
-      │ Hint: Consider running the individual command using the command line: `dk0 --verbose get-object CommonsBase_Build.GitHub...`
-      │ Hint: Run with `-d intermediate` to keep the intermediate slot files.
-  ────╯
-  
-  [exit 1]
+  \test(pass)
+  \dk.object(abi: "Release.Linux_arm64", value-id: "oh3sqi47dwlyrziyevv7zji5jj3ycqlsnws4qupkpw4omgi3tzzvq")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_x86_64", value-id: "ojglgqicuqtb7nxolvgiftkciyd5ehxhkuvli7t5vqjufqvq36zaa")\;
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oew33hjrlccybkmmphlgdlmgzq2ox3ew4vee3fz33xsfgs2vjxtaq")\;
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-GitHubCLI-2.92.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_arm64", value-id: "oxrguyczf5kqtbsdy66kqua2l23jxmbqa5eyuoohm7pdsc53tdtoa")\;
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "orstlyhdkgmvlg7fqgvulfafhee7vn6dmumfvzknxx4hrfgxs2jza")\;

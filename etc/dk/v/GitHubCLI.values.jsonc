@@ -8,9 +8,9 @@
       "precommands": {
         "sequential": true,
         "private": [
-          "run-function CommonsBase_Std.Extract.F_Untar@0.2.0 -d ${SLOT.Release.Linux_x86}/bin -n 3 modver=CommonsBase_Build.GitHubCLI.Linux_x86.Raw@2.92.0 tarmodver=CommonsBase_Build.GitHubCLI.Bundle@2.92.0 tarassetpath=gh_2.92.0_linux_386.tar.gz paths[]=gh_2.92.0_linux_386/bin/gh",
-          "run-function CommonsBase_Std.Extract.F_Untar@0.2.0 -d ${SLOT.Release.Linux_x86_64}/bin -n 3 modver=CommonsBase_Build.GitHubCLI.Linux_x86_64.Raw@2.92.0 tarmodver=CommonsBase_Build.GitHubCLI.Bundle@2.92.0 tarassetpath=gh_2.92.0_linux_amd64.tar.gz paths[]=gh_2.92.0_linux_amd64/bin/gh",
-          "run-function CommonsBase_Std.Extract.F_Untar@0.2.0 -d ${SLOT.Release.Linux_arm64}/bin -n 3 modver=CommonsBase_Build.GitHubCLI.Linux_arm64.Raw@2.92.0 tarmodver=CommonsBase_Build.GitHubCLI.Bundle@2.92.0 tarassetpath=gh_2.92.0_linux_arm64.tar.gz paths[]=gh_2.92.0_linux_arm64/bin/gh",
+          "run-function CommonsBase_Std.Extract.F_Untar@0.2.0 -d ${SLOT.Release.Linux_x86}/bin -n 2 modver=CommonsBase_Build.GitHubCLI.Linux_x86.Raw@2.92.0 tarmodver=CommonsBase_Build.GitHubCLI.Bundle@2.92.0 tarassetpath=gh_2.92.0_linux_386.tar.gz paths[]=gh_2.92.0_linux_386/bin/gh",
+          "run-function CommonsBase_Std.Extract.F_Untar@0.2.0 -d ${SLOT.Release.Linux_x86_64}/bin -n 2 modver=CommonsBase_Build.GitHubCLI.Linux_x86_64.Raw@2.92.0 tarmodver=CommonsBase_Build.GitHubCLI.Bundle@2.92.0 tarassetpath=gh_2.92.0_linux_amd64.tar.gz paths[]=gh_2.92.0_linux_amd64/bin/gh",
+          "run-function CommonsBase_Std.Extract.F_Untar@0.2.0 -d ${SLOT.Release.Linux_arm64}/bin -n 2 modver=CommonsBase_Build.GitHubCLI.Linux_arm64.Raw@2.92.0 tarmodver=CommonsBase_Build.GitHubCLI.Bundle@2.92.0 tarassetpath=gh_2.92.0_linux_arm64.tar.gz paths[]=gh_2.92.0_linux_arm64/bin/gh",
           "get-asset CommonsBase_Build.GitHubCLI.Bundle@2.92.0 -p gh_2.92.0_macOS_amd64.zip -m gh_2.92.0_macOS_amd64/bin/gh -f ${SLOT.Release.Darwin_x86_64}/bin/gh -e '*'",
           "get-asset CommonsBase_Build.GitHubCLI.Bundle@2.92.0 -p gh_2.92.0_macOS_arm64.zip -m gh_2.92.0_macOS_arm64/bin/gh -f ${SLOT.Release.Darwin_arm64}/bin/gh -e '*'",
           "get-asset CommonsBase_Build.GitHubCLI.Bundle@2.92.0 -p gh_2.92.0_windows_386.zip -m bin/gh.exe -f ${SLOT.Release.Windows_x86}/bin/gh.exe",
