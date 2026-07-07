@@ -53,9 +53,7 @@ jobs:
             pubkey: ${{ secrets.distribute_0_1_pubkey }}
             seckey: ${{ secrets.distribute_0_1_seckey }}
             options: -nosysinc
-            # store: none for this cascade release (2.4.2.250 + fixed Std) so CI builds
-            # fresh instead of restoring the prior 2.4.2.249 objects. Restore afterward.
-            store: none
+            store: release
             distscript: ${{ matrix.distscript }}
             execution-abi: ${{ matrix.execution-abi }}
             #   Use MlFront HEAD when CI build is not from a tag
