@@ -53,7 +53,12 @@ jobs:
             pubkey: ${{ secrets.distribute_0_1_pubkey }}
             seckey: ${{ secrets.distribute_0_1_seckey }}
             options: -nosysinc
-            store: release
+            #   `store: release` seals the module set of the previous release:
+            #   a brand-new module (Git.MinGit) can only be ADDED under a
+            #   strictly higher distribution MAJOR.MINOR. `store: none` skips
+            #   the sealed baseline so additive releases stay on the 0.1 line
+            #   (the CommonsBase_Std pattern for its additive Extract releases).
+            store: none
             distscript: ${{ matrix.distscript }}
             execution-abi: ${{ matrix.execution-abi }}
             #   Use MlFront HEAD when CI build is not from a tag
