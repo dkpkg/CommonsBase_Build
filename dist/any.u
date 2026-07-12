@@ -246,3 +246,22 @@ which runs:
   $ get-object CommonsBase_Build.GitHubCLI@2.92.0 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-GitHubCLI-2.92.0.zip
   \test(pass)
   \dk.object(abi: "Release.Darwin_arm64", value-id: "orstlyhdkgmvlg7fqgvulfafhee7vn6dmumfvzknxx4hrfgxs2jza")\;
+
+## CommonsBase_Build.Git.MinGit@2.55.0
+
+MinGit (git-for-windows) whole-tree prebuilt: `cmd/git.exe` plus its
+`mingw64|mingw32|clangarm64` runtime, Windows slots only. `cmd/` deliberately
+contains no bash, so the object is safe for
+`opam init --git-location=<obj>/cmd`. Whole-zip `get-asset` extraction per
+slot; the exhaustive outputs were generated from a local extraction of the
+pinned zips.
+
+  $ get-object CommonsBase_Build.Git.MinGit@2.55.0 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Git.MinGit-2.55.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "okqvx6ezhymtqk4etjltl3m3ik3tmltrumafi762ybpkodanjpvqa")\;
+  $ get-object CommonsBase_Build.Git.MinGit@2.55.0 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-Git.MinGit-2.55.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_x86", value-id: "ogku2dt3tmegyntsw6mix2eiacfhhjwvl66o52mwrcf4epo5szs2q")\;
+  $ get-object CommonsBase_Build.Git.MinGit@2.55.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Git.MinGit-2.55.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_arm64", value-id: "o4hreoiypmsplbsuujhuqdt7qrevwnywgtbuut66tzol44326r6sa")\;
