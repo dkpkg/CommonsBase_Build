@@ -258,10 +258,10 @@ pinned zips.
 
   $ get-object CommonsBase_Build.Git.MinGit@2.55.0 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Git.MinGit-2.55.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "okqvx6ezhymtqk4etjltl3m3ik3tmltrumafi762ybpkodanjpvqa")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "o3lm5afrryywtvglphf5fut234kc6au54mmltkzxdr46skouby7nq")\;
   $ get-object CommonsBase_Build.Git.MinGit@2.55.0 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-Git.MinGit-2.55.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86", value-id: "ogku2dt3tmegyntsw6mix2eiacfhhjwvl66o52mwrcf4epo5szs2q")\;
+  \dk.object(abi: "Release.Windows_x86", value-id: "okt6q3a7yqkxvd4jixcyqb52cdrvr5oprkygdhexnf4acdsidgyuq")\;
   $ get-object CommonsBase_Build.Git.MinGit@2.55.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Git.MinGit-2.55.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "o4hreoiypmsplbsuujhuqdt7qrevwnywgtbuut66tzol44326r6sa")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "ohfdxbl7oystrglbp3lpduqxptd42e5ddagwj7rs3bx24p2qcvslq")\;
