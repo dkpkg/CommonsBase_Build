@@ -283,6 +283,16 @@ end
 function rules.F_Build(command, request)
   if command == "declareoutput" then
     local slots = CommonsBase_Build__CMake0__3_25_3.get_release_execution_abis()
+    return {
+      declareoutput = {
+        return_objects = {
+          id = "OurCMake_F_Build." .. request.rule.generatesymbol() .. "@1.0.0",
+          slots = slots,
+          execution_slot = "Release.execution_abi"
+        }
+      }
+    }
+  elseif command == "declareinput" then
     local input_bundles = {}
     local input_assets = {}
     local bundlemodver = request.user.bundlemodver
@@ -298,12 +308,7 @@ function rules.F_Build(command, request)
       table.insert(input_assets, { id = assetmodver, path = assetpath })
     end
     return {
-      declareoutput = {
-        return_objects = {
-          id = "OurCMake_F_Build." .. request.rule.generatesymbol() .. "@1.0.0",
-          slots = slots,
-          execution_slot = "Release.execution_abi"
-        },
+      declareinput = {
         input_bundles = input_bundles,
         input_assets = input_assets
       }
