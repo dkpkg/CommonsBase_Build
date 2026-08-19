@@ -8,6 +8,51 @@ CMake, Ninja and VSWhere plus the Lua build rules (scriptmodules) that compile d
 from source: the **CMake** and **Ninja** build tools, **VSWhere** for locating
 MSVC on Windows, and the Lua **scriptmodules** (build rules) that drive them.
 
+## Toolchain discovery
+
+DRAFT, awaiting the maintainer's schema review (dksdk-coder
+`plans/toolchain/SCHEMA-REVIEW.md`).
+
+The `CommonsBase_Build.Toolchain.Discover.*` objects supply system-toolchain
+discovery probes. A probe runs at execution time inside a consuming form
+command, emits UTF-8 LF `KEY=VALUE` lines on stdout, and exits nonzero with
+a one-line stderr message naming the per-ABI contract when the toolchain is
+absent. Discovery data stays in process environment and configuration
+files; it never enters dk values.
+
+Provider contract (any dk package can ship an alternative provider):
+
++ The object slot tree contains `bin/discover.sh` and/or `bin/discover.bat`.
++ Invocation: `discover --abi <TARGET_ABI> [--config <path>]`.
++ Output keys match `[A-Z0-9_]+`.
+
+Key registry:
+
+| Provider | Keys |
+|---|---|
+| `Toolchain.Discover.MSVC` | `VSINSTALLDIR`, `VCToolsVersion`, `WindowsSDKVersion`, `VSCMD_VER`, `VisualStudioVersion`, `MSVS_PREFERENCE`, `DKML_COMPILE_VS_DIR`, `DKML_COMPILE_VS_VCVARSVER`, `DKML_COMPILE_VS_WINSDKVER`, `DKML_COMPILE_VS_MSVSPREFERENCE`, `DKML_COMPILE_VS_CMAKEGENERATOR` |
+| `Toolchain.Discover.CGlibc` | `DK_TC_CC`, `DK_TC_CXX`, `DK_TC_AS`, `DK_TC_AR`, `DK_TC_LD`, `DK_TC_GLIBC_VERSION` |
+
+Configuration files (`toolchains.jsonc`), highest precedence first:
+
+1. The project-level `etc/dk/t/toolchains.jsonc` (git-ignored; it names
+   paths on one machine).
+2. The user/machine-level `<xdg config>/dk/toolchains.jsonc`
+   (`$XDG_CONFIG_HOME/dk`, default `~/.config/dk`, on Unix;
+   `%LOCALAPPDATA%\dk` on Windows).
+3. The host probe.
+
+Schema: a `toolchains` object keyed by target ABI name or family glob
+(`Windows_*`, `Linux_*`, `Linux_*_musl`, `Darwin_*`). Keys per section:
+`provider` (module@version of the Discover object), `msvs_preference`
+(ordered `;`-separated glob list over `VS<major>.<minor>` identifiers,
+the existing `MSVS_PREFERENCE` syntax), `vs_dir`, `cc`, `cxx`, `as`,
+`ar`, `ld`, `binutils_prefix`. A value is a literal path, or a dk value
+expression beginning with `$(` that `dk0 dialog
+CommonsBase_Build.Toolchain.Discover.<Family>` resolves under the `run`
+and `write` trust caps into the `resolved` section (with a `fingerprint`
+staleness token). Hand-written keys override the `resolved` cache.
+
 ## License
 
 BSD-3-Clause AND Apache-2.0 AND MIT AND LicenseRef-CMake-Copyright
@@ -83,3 +128,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   'asset'
   '1350'
   { 'sha256:2775a40cc3860fd3850a50797372a894c7eca1bf14e1be90024dbce2236b3a84' }
+  % unified.asset { name="ToolchainDiscover", dir="assets/dkt" }
+  'asset'
+  '4468'
+  { 'sha256:eb958ef4310134dc5649c0d04fa04087cf60d67540cb7f929cb554781abbf28f' }

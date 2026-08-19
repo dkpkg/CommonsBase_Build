@@ -1,3 +1,4 @@
 dk0 text eol=lf
 dk1 text eol=lf
 *.sh text eol=lf
+*.bat text eol=crlf

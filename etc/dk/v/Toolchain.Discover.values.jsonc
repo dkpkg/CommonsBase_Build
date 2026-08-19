@@ -1,0 +1,84 @@
+// Test: ./dk0 --trust-local-package CommonsBase_Build get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.Windows_x86_64 -d target/discover-msvc
+// Test: ./dk0 --trust-local-package CommonsBase_Build get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Linux_x86_64 -d target/discover-cglibc
+//
+// Toolchain discovery probes (DRAFT, awaiting the maintainer's schema
+// review; see dk.u "Toolchain discovery" for the provider contract and the
+// toolchains.jsonc schema). Consumers inject a probe with an envmod, e.g.
+//   "+DK_TC_DISCOVER=$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.bat"
+// and run it as a command prelude. The probe emits KEY=VALUE lines consumed
+// as process environment; discovery data never enters dk values. Unix
+// consumers invoke the probe through an explicit shell (sh .../discover.sh);
+// the slot tree carries no execute bits.
+{
+    "$schema": "https://diskuv.com/dk/schema/dk-value-1.0.json",
+    "schema_version": {
+        "major": 1,
+        "minor": 0
+    },
+    "forms": [
+        {
+            "id": "CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0",
+            "function": {
+                "commands": [
+                    [
+                        "$(get-object CommonsBase_Std.Coreutils@0.6.0 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e coreutils.exe -f coreutils.exe)",
+                        "mkdir", "-p", "${SLOT.request}/bin"
+                    ],
+                    [
+                        "$(get-object CommonsBase_Std.Coreutils@0.6.0 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e coreutils.exe -f coreutils.exe)",
+                        "cp",
+                        "$(get-asset CommonsBase_Build.Apparatus.ToolchainDiscover@0.1.0 -p assets/dkt -m ./discover.bat -f discover.bat)",
+                        "${SLOT.request}/bin/discover.bat"
+                    ]
+                ]
+            },
+            "outputs": {
+                "assets": [
+                    {
+                        "slots": [
+                            "Release.Windows_x86_64",
+                            "Release.Windows_x86",
+                            "Release.Windows_arm64"
+                        ],
+                        "paths": [
+                            "bin/discover.bat"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0",
+            "function": {
+                "commands": [
+                    [
+                        "$(get-object CommonsBase_Std.Coreutils@0.6.0 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e coreutils.exe -f coreutils.exe)",
+                        "mkdir", "-p", "${SLOT.request}/bin"
+                    ],
+                    [
+                        "$(get-object CommonsBase_Std.Coreutils@0.6.0 -s ${SLOTNAME.Release.execution_abi} -m ./coreutils.exe -e coreutils.exe -f coreutils.exe)",
+                        "cp",
+                        "$(get-asset CommonsBase_Build.Apparatus.ToolchainDiscover@0.1.0 -p assets/dkt -m ./discover.sh -f discover.sh)",
+                        "${SLOT.request}/bin/discover.sh"
+                    ]
+                ]
+            },
+            "outputs": {
+                "assets": [
+                    {
+                        "slots": [
+                            "Release.Linux_x86_64",
+                            "Release.Linux_x86",
+                            "Release.Linux_arm64",
+                            "Release.Darwin_x86_64",
+                            "Release.Darwin_arm64"
+                        ],
+                        "paths": [
+                            "bin/discover.sh"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
