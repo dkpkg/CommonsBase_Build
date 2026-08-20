@@ -1,0 +1,7 @@
+# Machine-local records under etc/dk/t are git-ignored (toolchains.jsonc,
+# resolved.jsonc, trust records). capabilities.json stays committable so a
+# repository can carry its trust grants into CI. See DK0-REFERENCE
+# "Workspace directories" and "System toolchains (per-ABI contract)".
+*
+!.gitignore
+!capabilities.json
