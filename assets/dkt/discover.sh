@@ -182,6 +182,20 @@ if [ -z "${DK_TC_CC:-}" ]; then
     fail "no C compiler found."
 fi
 
+# Fast path: a fresh sibling flat cache (written by the dialog) emits the
+# cached environment. A stale fingerprint is a hard error so a build never
+# consumes stale values; rerun the dialog to refresh.
+CACHE="etc/dk/t/resolved/$ABI.env"
+CURFP="${DK_TC_GLIBC_VERSION:-}"
+if [ -f "$CACHE" ]; then
+    CACHEFP=$(sed -n 's/^DK_TC_FINGERPRINT=//p' "$CACHE" | head -n 1)
+    if [ "$CACHEFP" = "$CURFP" ]; then
+        grep -v '^DK_TC_FINGERPRINT=' "$CACHE"
+        exit 0
+    fi
+    fail "the resolved cache is stale; rerun 'dk0 dialog CommonsBase_Build.Toolchain.Discover.CGlibc'."
+fi
+
 printf 'DK_TC_CC=%s\n' "$DK_TC_CC"
 [ -n "${DK_TC_CXX:-}" ] && printf 'DK_TC_CXX=%s\n' "$DK_TC_CXX"
 [ -n "${DK_TC_AS:-}" ] && printf 'DK_TC_AS=%s\n' "$DK_TC_AS"

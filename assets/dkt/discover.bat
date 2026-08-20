@@ -5,14 +5,20 @@ setlocal EnableExtensions EnableDelayedExpansion
 @REM
 @REM Provider contract (see CommonsBase_Build dk.u, "Toolchain discovery"):
 @REM   discover.bat --abi <TARGET_ABI> [--config <path>]
-@REM Emits UTF-8 LF KEY=VALUE lines on stdout. On success writes nothing to
-@REM stderr. On failure writes the one-line contract error followed by every
-@REM location searched and command line tried, then exits nonzero.
+@REM Emits KEY=VALUE lines on stdout. On success writes nothing to stderr. On
+@REM failure writes the one-line contract error followed by every location
+@REM searched and command line tried, then exits nonzero.
 @REM
 @REM Generalizes CommonsLang_OCaml assets/dkml/detect-vsenv.bat: same
 @REM VsDevCmd-shaped and DKML_COMPILE_VS_* emissions, same
 @REM -version [16.0,19.0) window, plus a vcvarsall capture of the full
 @REM INCLUDE/LIB/LIBPATH/PATH environment and the toolchains.jsonc overrides.
+@REM
+@REM Fast path: when the sibling flat cache etc\dk\t\resolved\<abi>.env exists
+@REM and its DK_TC_FINGERPRINT matches the current toolset, the cached
+@REM environment is emitted and vcvarsall is skipped. A stale fingerprint is a
+@REM hard error (rerun the dialog). The dialog writes both that flat cache and
+@REM the human-inspectable resolved.jsonc.
 @REM
 @REM Requires VSWHERE to point at the packaged
 @REM CommonsBase_Build.VSWhere@3.1.7 vswhere.exe (set by the build rule).
@@ -23,12 +29,13 @@ setlocal EnableExtensions EnableDelayedExpansion
 @REM probe. Honored keys: "vs_dir" (skips the vswhere search),
 @REM "msvs_preference" (re-emitted as MSVS_PREFERENCE for msvs-detect).
 @REM
-@REM DRAFT limitation (pending section+glob matching, next increment): config
-@REM keys are read with a line-oriented scan, blind to which toolchains
-@REM section a key sits in. A value beginning with $( is a dk value
-@REM expression and must be resolved by
-@REM `dk0 dialog CommonsBase_Build.Toolchain.Discover.MSVC` or replaced with
-@REM a literal path.
+@REM DRAFT limitation: this batch probe reads toolchains.jsonc with a
+@REM line-oriented scan, blind to which section a key sits in (discover.sh is
+@REM section-and-glob aware). Authoritative Windows section/glob precedence is
+@REM delivered through the dialog's flat cache. A value beginning with $( is a
+@REM dk value expression and must be resolved by
+@REM `dk0 dialog CommonsBase_Build.Toolchain.Discover.MSVC` or replaced with a
+@REM literal path.
 
 set "CONTRACT_SEE=See "System toolchains (per-ABI contract)" in DK0-REFERENCE."
 
@@ -167,6 +174,24 @@ set "VISUALSTUDIOMAJOR=%VSMAJOR%"
 set /a VSMAJOR_INT=%VSMAJOR% >nul 2>nul
 if not errorlevel 1 if %VSMAJOR_INT% GTR 18 set "VISUALSTUDIOMAJOR=18"
 
+@REM Fast path: a fresh sibling flat cache emits the cached environment and
+@REM skips the expensive vcvarsall. A stale fingerprint is a hard error so a
+@REM build never consumes a stale environment; rerun the dialog to refresh.
+set "DK_TC_CACHE=etc\dk\t\resolved\%DK_TC_ABI%.env"
+set "CURFP=VCToolsVersion=%VCTOOLSVERSION%;WindowsSDKVersion=%WINDOWSSDKVERSION%\;VSCMD_VER=%VSMAJOR%.%VSMINOR%"
+if not exist "%DK_TC_CACHE%" goto nocache
+set "CACHEFP="
+for /f "usebackq tokens=1,* delims==" %%A in (`findstr /b /c:"DK_TC_FINGERPRINT=" "%DK_TC_CACHE%" 2^>nul`) do set "CACHEFP=%%B"
+if "%CACHEFP%"=="%CURFP%" (
+    >> "%DK_TC_DIAG%" echo   cache hit: "%DK_TC_CACHE%"
+    findstr /v /b /c:"DK_TC_FINGERPRINT=" "%DK_TC_CACHE%"
+    del "%DK_TC_DIAG%" >nul 2>nul
+    exit /b 0
+)
+>&2 echo dk toolchain: Release.%DK_TC_ABI%: the resolved cache is stale; rerun 'dk0 dialog CommonsBase_Build.Toolchain.Discover.MSVC'. %CONTRACT_SEE%
+goto faildiag
+:nocache
+
 echo VSINSTALLDIR=%INSTALLPATH%\
 echo DKML_COMPILE_VS_DIR=%DKML_COMPILE_VS_DIR%
 if defined VCTOOLSVERSION (
@@ -200,8 +225,7 @@ if "%VISUALSTUDIOMAJOR%"=="11" (
 
 @REM Full environment capture: run vcvarsall for the target architecture and
 @REM emit INCLUDE/LIB/LIBPATH/PATH so a build task consumes them and skips
-@REM vcvarsall itself. This is the environment the dialog caches into
-@REM resolved.jsonc.
+@REM vcvarsall itself. This is the environment the dialog caches.
 set "VCVARSALL=%INSTALLPATH%\VC\Auxiliary\Build\vcvarsall.bat"
 >> "%DK_TC_DIAG%" echo   ran: "%VCVARSALL%" %VCARCH%
 if not exist "%VCVARSALL%" (

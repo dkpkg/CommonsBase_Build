@@ -133,6 +133,22 @@ function uirules.MSVC(command, request, continue_)
         }
         printf("dk toolchain dialog: resolved %s written=%s to %s\n",
             abi, tostring(ok), tostring(p))
+
+        -- Sibling flat cache the probes read directly: the raw KEY=VALUE the
+        -- probe emitted, plus a DK_TC_FINGERPRINT line. resolved.jsonc stays
+        -- the human-inspectable form; this is what discover.bat/.sh consume.
+        local cache_path = "etc/dk/t/resolved/" .. abi .. ".env"
+        local cache_body = r.stdout .. "DK_TC_FINGERPRINT=" .. fp .. "\n"
+        local cmeta = request.ui.checksum { path = cache_path }
+        local cexp
+        if cmeta == nil then cexp = "false" else cexp = cmeta.sha256 end
+        local cok, cp, csha = request.ui.writefile {
+            path = cache_path,
+            content = cache_body,
+            expected_sha256 = cexp
+        }
+        printf("dk toolchain dialog: cache %s written=%s to %s\n",
+            abi, tostring(cok), tostring(cp))
         request.io.flush()
         return { submit = {} }
     end
