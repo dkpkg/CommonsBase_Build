@@ -154,4 +154,85 @@ function uirules.MSVC(command, request, continue_)
     end
 end
 
+function uirules.CGlibc(command, request, continue_)
+    if command ~= "submit" then return end
+    if continue_ == "start" then
+        return {
+            submit = {
+                expressions = {
+                    strings = {
+                        probe = "$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.sh"
+                    }
+                },
+                andthen = { continue_ = { state = "captured" } }
+            }
+        }
+    end
+    if continue_ == "captured" then
+        local abi = "Linux_x86_64"
+        -- discover.sh carries no execute bit, so run it through a shell.
+        local r, msg, kind = request.ui.capture {
+            program = "/bin/sh",
+            args = { request.continued.probe, "--abi", abi }
+        }
+        if r == nil then
+            printf("dk toolchain dialog: probe was not run: %s\n", tostring(msg))
+            request.io.flush()
+            return { submit = {} }
+        end
+        if r.status ~= "exit" or r.code ~= 0 then
+            printf("dk toolchain dialog: probe failed (status=%s code=%s):\n%s\n",
+                tostring(r.status), tostring(r.code), r.stderr)
+            request.io.flush()
+            return { submit = {} }
+        end
+
+        local kv = {}
+        CommonsBase_Build__Discover_parsekv(r.stdout, kv)
+        -- The glibc probe's fingerprint is the glibc version; discover.sh's
+        -- cache read compares against exactly this.
+        local fp = kv.DK_TC_GLIBC_VERSION or ""
+
+        local body = "{\n"
+            .. "  \"$schema\": \"https://diskuv.com/dk/schema/dk-toolchains-resolved-1.0.json\",\n"
+            .. "  \"schema_version\": { \"major\": 1, \"minor\": 0 },\n"
+            .. "  \"resolved\": {\n"
+            .. "    \"" .. abi .. "\": {\n"
+        body = body .. "    \"fingerprint\": \"" .. CommonsBase_Build__Discover_jsonesc(fp) .. "\",\n"
+        body = body .. CommonsBase_Build__Discover_field(kv, "DK_TC_CC")
+        body = body .. CommonsBase_Build__Discover_field(kv, "DK_TC_CXX")
+        body = body .. CommonsBase_Build__Discover_field(kv, "DK_TC_AS")
+        body = body .. CommonsBase_Build__Discover_field(kv, "DK_TC_AR")
+        body = body .. CommonsBase_Build__Discover_field(kv, "DK_TC_LD")
+        body = body .. "    \"DK_TC_GLIBC_VERSION\": \"" .. CommonsBase_Build__Discover_jsonesc(fp) .. "\"\n"
+        body = body .. "    }\n  }\n}\n"
+
+        local meta = request.ui.checksum { path = "etc/dk/t/resolved.jsonc" }
+        local expected
+        if meta == nil then expected = "false" else expected = meta.sha256 end
+        local ok, p, sha = request.ui.writefile {
+            path = "etc/dk/t/resolved.jsonc",
+            content = body,
+            expected_sha256 = expected
+        }
+        printf("dk toolchain dialog: resolved %s written=%s to %s\n",
+            abi, tostring(ok), tostring(p))
+
+        local cache_path = "etc/dk/t/resolved/" .. abi .. ".env"
+        local cache_body = r.stdout .. "DK_TC_FINGERPRINT=" .. fp .. "\n"
+        local cmeta = request.ui.checksum { path = cache_path }
+        local cexp
+        if cmeta == nil then cexp = "false" else cexp = cmeta.sha256 end
+        local cok, cp, csha = request.ui.writefile {
+            path = cache_path,
+            content = cache_body,
+            expected_sha256 = cexp
+        }
+        printf("dk toolchain dialog: cache %s written=%s to %s\n",
+            abi, tostring(cok), tostring(cp))
+        request.io.flush()
+        return { submit = {} }
+    end
+end
+
 return M
