@@ -23,10 +23,12 @@ set -euf
 
 ABI=
 CONFIG=
+NOCACHE=
 while [ $# -gt 0 ]; do
     case "$1" in
-        --abi)    ABI="$2"; shift 2 ;;
-        --config) CONFIG="$2"; shift 2 ;;
+        --abi)      ABI="$2"; shift 2 ;;
+        --config)   CONFIG="$2"; shift 2 ;;
+        --no-cache) NOCACHE=1; shift ;;
         *) echo "dk toolchain: unknown argument $1" >&2; exit 2 ;;
     esac
 done
@@ -187,7 +189,7 @@ fi
 # consumes stale values; rerun the dialog to refresh.
 CACHE="etc/dk/t/resolved/$ABI.env"
 CURFP="${DK_TC_GLIBC_VERSION:-}"
-if [ -f "$CACHE" ]; then
+if [ -z "$NOCACHE" ] && [ -f "$CACHE" ]; then
     CACHEFP=$(sed -n 's/^DK_TC_FINGERPRINT=//p' "$CACHE" | head -n 1)
     if [ "$CACHEFP" = "$CURFP" ]; then
         grep -v '^DK_TC_FINGERPRINT=' "$CACHE"

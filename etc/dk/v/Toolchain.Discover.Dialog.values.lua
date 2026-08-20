@@ -135,26 +135,85 @@ function CommonsBase_Build__Discover_familyglob(abi)
     return string.sub(abi, 1, u) .. "*"
 end
 
+-- Register only a $()-expression value for resolution. Literal values (which
+-- on Windows carry \\ JSON escapes) are copied through unchanged instead of
+-- being round-tripped through the value-shell parser.
+function CommonsBase_Build__Discover_addexpr_ifexpr(strings, body, key)
+    if body == nil then return end
+    local raw = CommonsBase_Build__Discover_keyval(body, key)
+    if raw == nil then return end
+    if string.sub(raw, 1, 2) == "$(" then strings["cfg_" .. key] = raw end
+end
+
+-- Temp-config line for a key: a literal is copied with its config-file bytes
+-- intact (already JSON-escaped); a $() value uses the resolved literal, which
+-- is JSON-escaped here.
+function CommonsBase_Build__Discover_ovkeep(request, body, key, acc)
+    if body == nil then return acc end
+    local raw = CommonsBase_Build__Discover_keyval(body, key)
+    if raw == nil then return acc end
+    local val
+    if string.sub(raw, 1, 2) == "$(" then
+        local rv = request.continued["cfg_" .. key]
+        if rv == nil then return acc end
+        val = CommonsBase_Build__Discover_jsonesc(rv)
+    else
+        val = raw
+    end
+    return acc .. "      \"" .. key .. "\": \"" .. val .. "\",\n"
+end
+
 function uirules.MSVC(command, request, continue_)
     if command ~= "submit" then return end
     if continue_ == "start" then
+        local abi = CommonsBase_Build__Discover_abi(request, "Windows_x86_64")
+        local strings = {
+            probe = "$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.bat",
+            vswhere = "$(--path=absnative get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.execution_abi -e bin/vswhere.exe -d :)${/}bin${/}vswhere.exe"
+        }
+        local cfg = request.ui.readfile { path = "etc/dk/t/toolchains.jsonc" }
+        local body = nil
+        if cfg ~= nil then
+            body = CommonsBase_Build__Discover_sectionbody(cfg, abi)
+            if body == nil then body = CommonsBase_Build__Discover_sectionbody(cfg, CommonsBase_Build__Discover_familyglob(abi)) end
+        end
+        CommonsBase_Build__Discover_addexpr_ifexpr(strings, body, "vs_dir")
+        CommonsBase_Build__Discover_addexpr_ifexpr(strings, body, "msvs_preference")
         return {
             submit = {
-                expressions = {
-                    strings = {
-                        probe = "$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.bat",
-                        vswhere = "$(--path=absnative get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.execution_abi -e bin/vswhere.exe -d :)${/}bin${/}vswhere.exe"
-                    }
-                },
+                expressions = { strings = strings },
                 andthen = { continue_ = { state = "captured" } }
             }
         }
     end
     if continue_ == "captured" then
         local abi = CommonsBase_Build__Discover_abi(request, "Windows_x86_64")
+        -- Rebuild the config overrides: literals kept verbatim, $() resolved.
+        local cfg2 = request.ui.readfile { path = "etc/dk/t/toolchains.jsonc" }
+        local body2 = nil
+        if cfg2 ~= nil then
+            body2 = CommonsBase_Build__Discover_sectionbody(cfg2, abi)
+            if body2 == nil then body2 = CommonsBase_Build__Discover_sectionbody(cfg2, CommonsBase_Build__Discover_familyglob(abi)) end
+        end
+        local ov = ""
+        ov = CommonsBase_Build__Discover_ovkeep(request, body2, "vs_dir", ov)
+        ov = CommonsBase_Build__Discover_ovkeep(request, body2, "msvs_preference", ov)
+        -- --no-cache: the dialog always fresh-probes; it is the writer of the
+        -- cache, so it must not read a stale one.
+        local args = { "--abi", abi, "--no-cache" }
+        if ov ~= "" then
+            local tmp = "etc/dk/t/.discover-resolved.jsonc"
+            local tmpbody = "{\n  \"toolchains\": {\n    \"" .. abi .. "\": {\n" .. ov .. "    }\n  }\n}\n"
+            local tm = request.ui.checksum { path = tmp }
+            local te
+            if tm == nil then te = "false" else te = tm.sha256 end
+            request.ui.writefile { path = tmp, content = tmpbody, expected_sha256 = te }
+            -- discover.bat's findstr needs a backslash path on Windows.
+            args = { "--abi", abi, "--no-cache", "--config", "etc\\dk\\t\\.discover-resolved.jsonc" }
+        end
         local r, msg, kind = request.ui.capture {
             program = request.continued.probe,
-            args = { "--abi", abi },
+            args = args,
             envmods = { "+VSWHERE=" .. request.continued.vswhere }
         }
         if r == nil then
@@ -266,7 +325,9 @@ function uirules.CGlibc(command, request, continue_)
         ov = CommonsBase_Build__Discover_ov(request, "ar", ov)
         ov = CommonsBase_Build__Discover_ov(request, "ld", ov)
         ov = CommonsBase_Build__Discover_ov(request, "binutils_prefix", ov)
-        local prog_args = { request.continued.probe, "--abi", abi }
+        -- --no-cache: the dialog always fresh-probes; it writes the cache and
+        -- must not read a stale one.
+        local prog_args = { request.continued.probe, "--abi", abi, "--no-cache" }
         if ov ~= "" then
             local tmp = "etc/dk/t/.discover-resolved.jsonc"
             local tmpbody = "{\n  \"toolchains\": {\n    \"" .. abi .. "\": {\n" .. ov .. "    }\n  }\n}\n"
@@ -274,7 +335,7 @@ function uirules.CGlibc(command, request, continue_)
             local te
             if tm == nil then te = "false" else te = tm.sha256 end
             request.ui.writefile { path = tmp, content = tmpbody, expected_sha256 = te }
-            prog_args = { request.continued.probe, "--abi", abi, "--config", tmp }
+            prog_args = { request.continued.probe, "--abi", abi, "--no-cache", "--config", tmp }
         end
         -- discover.sh carries no execute bit, so run it through a shell.
         local r, msg, kind = request.ui.capture {

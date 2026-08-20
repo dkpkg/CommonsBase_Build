@@ -55,6 +55,11 @@ if /i "%~1"=="--config" (
     shift
     goto parseargs
 )
+if /i "%~1"=="--no-cache" (
+    set "DK_TC_NOCACHE=1"
+    shift
+    goto parseargs
+)
 echo dk toolchain: unknown argument %~1 1>&2
 exit /b 2
 :doneargs
@@ -179,6 +184,7 @@ if not errorlevel 1 if %VSMAJOR_INT% GTR 18 set "VISUALSTUDIOMAJOR=18"
 @REM build never consumes a stale environment; rerun the dialog to refresh.
 set "DK_TC_CACHE=etc\dk\t\resolved\%DK_TC_ABI%.env"
 set "CURFP=VCToolsVersion=%VCTOOLSVERSION%;WindowsSDKVersion=%WINDOWSSDKVERSION%\;VSCMD_VER=%VSMAJOR%.%VSMINOR%"
+if defined DK_TC_NOCACHE goto nocache
 if not exist "%DK_TC_CACHE%" goto nocache
 set "CACHEFP="
 for /f "usebackq tokens=1,* delims==" %%A in (`findstr /b /c:"DK_TC_FINGERPRINT=" "%DK_TC_CACHE%" 2^>nul`) do set "CACHEFP=%%B"
