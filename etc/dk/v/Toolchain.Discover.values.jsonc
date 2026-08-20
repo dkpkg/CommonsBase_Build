@@ -1,10 +1,12 @@
 // Test: ./dk0 --trust-local-package CommonsBase_Build get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.Windows_x86_64 -d target/discover-msvc
 // Test: ./dk0 --trust-local-package CommonsBase_Build get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Linux_x86_64 -d target/discover-cglibc
 //
-// Toolchain discovery probes (DRAFT, awaiting the maintainer's schema
-// review; see dk.u "Toolchain discovery" for the provider contract and the
-// toolchains.jsonc schema). Consumers inject a probe with an envmod, e.g.
-//   "+DK_TC_DISCOVER=$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.bat"
+// Toolchain discovery probes (DRAFT; see dk.u "Toolchain discovery" for the
+// provider contract and the toolchains.jsonc schema). Consumers inject a
+// probe with an envmod whose script extension is host-driven by the
+// ${.script.execution} form variable (bat on a Windows execution host, sh
+// on a Unix one), e.g.
+//   "+DK_TC_DISCOVER=$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.${.script.execution}"
 // and run it as a command prelude. The probe emits KEY=VALUE lines consumed
 // as process environment; discovery data never enters dk values. Unix
 // consumers invoke the probe through an explicit shell (sh .../discover.sh);
