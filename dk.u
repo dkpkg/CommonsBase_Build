@@ -130,5 +130,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   { 'sha256:2775a40cc3860fd3850a50797372a894c7eca1bf14e1be90024dbce2236b3a84' }
   % unified.asset { name="ToolchainDiscover", dir="assets/dkt" }
   'asset'
-  '5320'
-  { 'sha256:9058f00f1eee91fdc7bdd18d52a51c95cb5634d08217c3a5fea9c335581a568f' }
+  '5820'
+  { 'sha256:f2611d9b48454674bef9f3972a51d760730f816635c16131cc44aa30d8bea561' }

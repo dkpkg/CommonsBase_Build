@@ -12,11 +12,13 @@
 # user/machine-level ${XDG_CONFIG_HOME:-$HOME/.config}/dk/toolchains.jsonc,
 # else the host probe.
 #
-# DRAFT limitation (pending section+glob matching, next increment): config
-# keys are read with a line-oriented scan, blind to which toolchains section
-# a key sits in. A value beginning with $( is a dk value expression and must
-# be resolved by `dk0 dialog CommonsBase_Build.Toolchain.Discover.CGlibc` or
-# replaced with a literal path.
+# Config keys are read section-aware: the section for the requested ABI is
+# the exact-ABI section if present, else the most specific matching family
+# glob (Linux_*_musl beats Linux_*). Sections are pretty-printed JSONC
+# objects one level under "toolchains". A value beginning with $( is a dk
+# value expression and must be resolved by
+# `dk0 dialog CommonsBase_Build.Toolchain.Discover.CGlibc` or replaced with a
+# literal path.
 set -euf
 
 ABI=
@@ -59,11 +61,55 @@ else
     diag "config: none found (etc/dk/t/toolchains.jsonc, \${XDG_CONFIG_HOME:-\$HOME/.config}/dk/toolchains.jsonc)"
 fi
 
-# cfg_get KEY: print the last "KEY": "VALUE" occurrence in $CONFIG, if any.
+# candidate_sections: the config section keys to try for $ABI, most specific
+# first (exact ABI, then family globs by specificity).
+candidate_sections() {
+    printf '%s\n' "$ABI"
+    case "$ABI" in
+        Linux_*_musl) printf 'Linux_*_musl\nLinux_*\n' ;;
+        Linux_*)      printf 'Linux_*\n' ;;
+        Windows_*)    printf 'Windows_*\n' ;;
+        Darwin_*)     printf 'Darwin_*\n' ;;
+    esac
+}
+
+# section_body SECTIONKEY < CONFIG: print the lines inside that section's
+# braces. Brace-counted, so it tolerates nested objects; assumes the opening
+# brace sits on the section header line (pretty-printed JSONC).
+section_body() {
+    _sec="$1"
+    _in=0
+    _depth=0
+    while IFS= read -r _line; do
+        if [ "$_in" = 0 ]; then
+            case "$_line" in
+                *"\"$_sec\""*)
+                    case "$_line" in *"{"*) _in=1; _depth=1 ;; esac
+                    ;;
+            esac
+        else
+            _opens=$(printf '%s' "$_line" | tr -cd '{' | wc -c | tr -d ' ')
+            _closes=$(printf '%s' "$_line" | tr -cd '}' | wc -c | tr -d ' ')
+            _depth=$((_depth + _opens - _closes))
+            if [ "$_depth" -le 0 ]; then break; fi
+            printf '%s\n' "$_line"
+        fi
+    done
+}
+
+# cfg_get KEY: print KEY's value from the first matching section, if any.
 cfg_get() {
-    if [ -n "$CONFIG" ] && [ -f "$CONFIG" ]; then
-        sed -n 's/^[[:space:]]*"'"$1"'"[[:space:]]*:[[:space:]]*"\(.*\)".*$/\1/p' "$CONFIG" | tail -n 1
-    fi
+    _key="$1"
+    if [ -z "$CONFIG" ] || [ ! -f "$CONFIG" ]; then return 0; fi
+    for _cand in $(candidate_sections); do
+        _val=$(section_body "$_cand" < "$CONFIG" \
+            | sed -n 's/^[[:space:]]*"'"$_key"'"[[:space:]]*:[[:space:]]*"\(.*\)".*$/\1/p' \
+            | head -n 1)
+        if [ -n "$_val" ]; then
+            printf '%s\n' "$_val"
+            return 0
+        fi
+    done
 }
 
 reject_expression() {
