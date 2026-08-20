@@ -118,6 +118,23 @@ function CommonsBase_Build__Discover_ov(request, key, acc)
     return acc .. "      \"" .. key .. "\": \"" .. CommonsBase_Build__Discover_jsonesc(v) .. "\",\n"
 end
 
+-- The target ABI from the dialog argument (dk0 dialog ...@ver abi=Windows_x86),
+-- or the provider default.
+function CommonsBase_Build__Discover_abi(request, dflt)
+    if request.user ~= nil then
+        if request.user.abi ~= nil then return request.user.abi end
+    end
+    return dflt
+end
+
+-- The family glob for an ABI: everything up to the first underscore, then "*".
+-- Linux_x86_64 -> Linux_*, Windows_x86 -> Windows_*.
+function CommonsBase_Build__Discover_familyglob(abi)
+    local u = string.find(abi, "_", 1, 1)
+    if u == nil then return abi end
+    return string.sub(abi, 1, u) .. "*"
+end
+
 function uirules.MSVC(command, request, continue_)
     if command ~= "submit" then return end
     if continue_ == "start" then
@@ -134,7 +151,7 @@ function uirules.MSVC(command, request, continue_)
         }
     end
     if continue_ == "captured" then
-        local abi = "Windows_x86_64"
+        local abi = CommonsBase_Build__Discover_abi(request, "Windows_x86_64")
         local r, msg, kind = request.ui.capture {
             program = request.continued.probe,
             args = { "--abi", abi },
@@ -217,11 +234,12 @@ function uirules.CGlibc(command, request, continue_)
         local strings = {
             probe = "$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.sh"
         }
+        local abi = CommonsBase_Build__Discover_abi(request, "Linux_x86_64")
         local cfg = request.ui.readfile { path = "etc/dk/t/toolchains.jsonc" }
         local body = nil
         if cfg ~= nil then
-            body = CommonsBase_Build__Discover_sectionbody(cfg, "Linux_x86_64")
-            if body == nil then body = CommonsBase_Build__Discover_sectionbody(cfg, "Linux_*") end
+            body = CommonsBase_Build__Discover_sectionbody(cfg, abi)
+            if body == nil then body = CommonsBase_Build__Discover_sectionbody(cfg, CommonsBase_Build__Discover_familyglob(abi)) end
         end
         CommonsBase_Build__Discover_addexpr(strings, body, "cc")
         CommonsBase_Build__Discover_addexpr(strings, body, "cxx")
@@ -237,7 +255,7 @@ function uirules.CGlibc(command, request, continue_)
         }
     end
     if continue_ == "captured" then
-        local abi = "Linux_x86_64"
+        local abi = CommonsBase_Build__Discover_abi(request, "Linux_x86_64")
         -- If any config keys were resolved, write a temp config holding the
         -- resolved literals and point the probe at it. The probe's line scan
         -- tolerates the trailing commas.
