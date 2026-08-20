@@ -64,6 +64,60 @@ function CommonsBase_Build__Discover_field(kv, key)
     return "    \"" .. key .. "\": \"" .. CommonsBase_Build__Discover_jsonesc(v) .. "\",\n"
 end
 
+-- Plain (non-pattern) brace-matched body of the first section whose header is
+-- "seckey" followed by "{". Returns the body substring, or nil.
+function CommonsBase_Build__Discover_sectionbody(cfg, seckey)
+    local needle = "\"" .. seckey .. "\""
+    local p = string.find(cfg, needle, 1, 1)
+    if p == nil then return nil end
+    local b = string.find(cfg, "{", p, 1)
+    if b == nil then return nil end
+    local depth = 0
+    local i = b
+    local n = string.len(cfg)
+    while i <= n do
+        local c = string.sub(cfg, i, i)
+        if c == "{" then
+            depth = depth + 1
+        elseif c == "}" then
+            depth = depth - 1
+            if depth == 0 then return string.sub(cfg, b + 1, i - 1) end
+        end
+        i = i + 1
+    end
+    return nil
+end
+
+-- Plain string value of "key": "<value>" within body, or nil. Values holding
+-- an embedded double quote are out of scope (toolchain paths do not).
+function CommonsBase_Build__Discover_keyval(body, key)
+    local needle = "\"" .. key .. "\""
+    local p = string.find(body, needle, 1, 1)
+    if p == nil then return nil end
+    local colon = string.find(body, ":", p, 1)
+    if colon == nil then return nil end
+    local q1 = string.find(body, "\"", colon, 1)
+    if q1 == nil then return nil end
+    local q2 = string.find(body, "\"", q1 + 1, 1)
+    if q2 == nil then return nil end
+    return string.sub(body, q1 + 1, q2 - 1)
+end
+
+-- If body holds "key", register its raw value (literal or $() expression) in
+-- the strings table under cfg_<key> so the engine resolves it.
+function CommonsBase_Build__Discover_addexpr(strings, body, key)
+    if body == nil then return end
+    local rawval = CommonsBase_Build__Discover_keyval(body, key)
+    if rawval ~= nil then strings["cfg_" .. key] = rawval end
+end
+
+-- Append a resolved "key": "value" override line for the temp probe config.
+function CommonsBase_Build__Discover_ov(request, key, acc)
+    local v = request.continued["cfg_" .. key]
+    if v == nil then return acc end
+    return acc .. "      \"" .. key .. "\": \"" .. CommonsBase_Build__Discover_jsonesc(v) .. "\",\n"
+end
+
 function uirules.MSVC(command, request, continue_)
     if command ~= "submit" then return end
     if continue_ == "start" then
@@ -157,23 +211,57 @@ end
 function uirules.CGlibc(command, request, continue_)
     if command ~= "submit" then return end
     if continue_ == "start" then
+        -- Resolve config values (literal or $() expression) for this ABI so
+        -- the probe never sees an unresolved $(...). Read the config, extract
+        -- the section, and register each present key for engine resolution.
+        local strings = {
+            probe = "$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.sh"
+        }
+        local cfg = request.ui.readfile { path = "etc/dk/t/toolchains.jsonc" }
+        local body = nil
+        if cfg ~= nil then
+            body = CommonsBase_Build__Discover_sectionbody(cfg, "Linux_x86_64")
+            if body == nil then body = CommonsBase_Build__Discover_sectionbody(cfg, "Linux_*") end
+        end
+        CommonsBase_Build__Discover_addexpr(strings, body, "cc")
+        CommonsBase_Build__Discover_addexpr(strings, body, "cxx")
+        CommonsBase_Build__Discover_addexpr(strings, body, "as")
+        CommonsBase_Build__Discover_addexpr(strings, body, "ar")
+        CommonsBase_Build__Discover_addexpr(strings, body, "ld")
+        CommonsBase_Build__Discover_addexpr(strings, body, "binutils_prefix")
         return {
             submit = {
-                expressions = {
-                    strings = {
-                        probe = "$(--path=absnative get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.execution_abi -e 'bin/*' -d :)${/}bin${/}discover.sh"
-                    }
-                },
+                expressions = { strings = strings },
                 andthen = { continue_ = { state = "captured" } }
             }
         }
     end
     if continue_ == "captured" then
         local abi = "Linux_x86_64"
+        -- If any config keys were resolved, write a temp config holding the
+        -- resolved literals and point the probe at it. The probe's line scan
+        -- tolerates the trailing commas.
+        local ov = ""
+        ov = CommonsBase_Build__Discover_ov(request, "cc", ov)
+        ov = CommonsBase_Build__Discover_ov(request, "cxx", ov)
+        ov = CommonsBase_Build__Discover_ov(request, "as", ov)
+        ov = CommonsBase_Build__Discover_ov(request, "ar", ov)
+        ov = CommonsBase_Build__Discover_ov(request, "ld", ov)
+        ov = CommonsBase_Build__Discover_ov(request, "binutils_prefix", ov)
+        local prog_args = { request.continued.probe, "--abi", abi }
+        if ov ~= "" then
+            local tmp = "etc/dk/t/.discover-resolved.jsonc"
+            local tmpbody = "{\n  \"toolchains\": {\n    \"" .. abi .. "\": {\n" .. ov .. "    }\n  }\n}\n"
+            local tm = request.ui.checksum { path = tmp }
+            local te
+            if tm == nil then te = "false" else te = tm.sha256 end
+            request.ui.writefile { path = tmp, content = tmpbody, expected_sha256 = te }
+            prog_args = { request.continued.probe, "--abi", abi, "--config", tmp }
+        end
         -- discover.sh carries no execute bit, so run it through a shell.
         local r, msg, kind = request.ui.capture {
             program = "/bin/sh",
-            args = { request.continued.probe, "--abi", abi }
+            args = prog_args
         }
         if r == nil then
             printf("dk toolchain dialog: probe was not run: %s\n", tostring(msg))
