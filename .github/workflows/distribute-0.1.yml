@@ -47,7 +47,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Distribute Modules
-        uses: diskuv/dk-distribute@v3
+        uses: diskuv/dk-distribute@v4
         with:
             standalone: true
             pubkey: ${{ secrets.distribute_0_1_pubkey }}
@@ -71,4 +71,4 @@ jobs:
       # that bundle beside values.json with a plain download, so importing this
       # release needs no GitHub API token.
       - name: Attest and Release
-        uses: diskuv/dk-distribute/attest-release@v3
+        uses: diskuv/dk-distribute/attest-release@v4
