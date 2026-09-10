@@ -170,31 +170,31 @@ which runs:
   \dk.object(abi: "Release.Windows_x86_64", value-id: "oxeoosleep7sa5lb4g3lssoegajgthfxpu2x7wd2vt2ese7wudcoq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_arm64", value-id: "oibi3kxnrjndmkoojp7lfep4bscecl5b2qoriz7ra333g77vxdzia")\;
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "ohbidmffyeodcth4fqhlfrlfeg5c3j7w56zzfxltqjob6vtyi3owa")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_x86_64", value-id: "ofr6ps52wdoyvxshgifpcxvm3rtb4lceovrb4jawyqestiq3erp7a")\;
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oxtqvbjzqrrrkq6cogsb6daux34rtsm2trcp6frpjtrfz3tcxigoq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86", value-id: "oa7fq4vq34ybjdqjlaghlr4znsguex3mqnzfzfvb7wv4mutgyle2q")\;
+  \dk.object(abi: "Release.Linux_x86", value-id: "oknuyrdqfc7wxfuzo7fag6wo67uhudvg73rlsyursa2qi7rl2vasq")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "on3yuwhrjdujg6lnp74lh3go5copcxegk6hbj4xhh52tubj7wza4a")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oe7dmxtsno2tpawkvnjzjipdwodgnpivq4drxhzzq4lsg5qtlwqra")\;
   $ get-object CommonsBase_Build.Ninja0@1.12.1 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Ninja0-1.12.1.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_arm64", value-id: "otimdrti6rpmdgoklfdjeojgzckbypidbsxqharbmyvbfyaiyq7cq")\;
+  \dk.object(abi: "Release.Linux_arm64", value-id: "ornywcjsnickrz5ihkprqcdsxm36qmtt5dsuy7t3tmwar4pahbaya")\;
 
 ## CommonsBase_Build.VSWhere@3.1.7
 
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "om6lprq5s7ujodrbwuliwfppxxubsp763qab4a5ljrruzlk4thfda")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "oxkvqdyqqkckzixie4no4qcww4xnt2nk5s7mdo6igqnbip7gsfxlq")\;
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86", value-id: "oe46nvdirbzsfcxmvt4g2zpnm5bxvc2ie5liaglsxo6s6awtfotiq")\;
+  \dk.object(abi: "Release.Windows_x86", value-id: "oemwxule77tg56amz4t2xsyjwqjc5sqnwbryimrjf2ozvgwl3hy7q")\;
   $ get-object CommonsBase_Build.VSWhere@3.1.7 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-VSWhere-3.1.7.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "o2u5nmcm62r5cevsoqb2tlecgcifn5ckoi3oeyeesgyd3twoknxja")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa")\;
 
 ## CommonsBase_Build.Age@1.3.1
 
@@ -273,13 +273,13 @@ MSVC toolchain discovery probe `bin/discover.bat`, copied from the
 
   $ get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Toolchain.Discover.MSVC-1.0.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa")\;
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "o2u5nmcm62r5cevsoqb2tlecgcifn5ckoi3oeyeesgyd3twoknxja")\;
   $ get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-Toolchain.Discover.MSVC-1.0.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_x86", value-id: "oemwxule77tg56amz4t2xsyjwqjc5sqnwbryimrjf2ozvgwl3hy7q")\;
+  \dk.object(abi: "Release.Windows_x86", value-id: "oe46nvdirbzsfcxmvt4g2zpnm5bxvc2ie5liaglsxo6s6awtfotiq")\;
   $ get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Toolchain.Discover.MSVC-1.0.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Windows_arm64", value-id: "oxkvqdyqqkckzixie4no4qcww4xnt2nk5s7mdo6igqnbip7gsfxlq")\;
+  \dk.object(abi: "Release.Windows_arm64", value-id: "om6lprq5s7ujodrbwuliwfppxxubsp763qab4a5ljrruzlk4thfda")\;
 
 ## CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0
 
@@ -289,16 +289,16 @@ slots only.
 
   $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Toolchain.Discover.CGlibc-1.0.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86_64", value-id: "oe7dmxtsno2tpawkvnjzjipdwodgnpivq4drxhzzq4lsg5qtlwqra")\;
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "on3yuwhrjdujg6lnp74lh3go5copcxegk6hbj4xhh52tubj7wza4a")\;
   $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-Toolchain.Discover.CGlibc-1.0.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_x86", value-id: "oknuyrdqfc7wxfuzo7fag6wo67uhudvg73rlsyursa2qi7rl2vasq")\;
+  \dk.object(abi: "Release.Linux_x86", value-id: "oa7fq4vq34ybjdqjlaghlr4znsguex3mqnzfzfvb7wv4mutgyle2q")\;
   $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Toolchain.Discover.CGlibc-1.0.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Linux_arm64", value-id: "ornywcjsnickrz5ihkprqcdsxm36qmtt5dsuy7t3tmwar4pahbaya")\;
+  \dk.object(abi: "Release.Linux_arm64", value-id: "otimdrti6rpmdgoklfdjeojgzckbypidbsxqharbmyvbfyaiyq7cq")\;
   $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Toolchain.Discover.CGlibc-1.0.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oxtqvbjzqrrrkq6cogsb6daux34rtsm2trcp6frpjtrfz3tcxigoq")\;
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "ofr6ps52wdoyvxshgifpcxvm3rtb4lceovrb4jawyqestiq3erp7a")\;
   $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Toolchain.Discover.CGlibc-1.0.0.zip
   \test(pass)
-  \dk.object(abi: "Release.Darwin_arm64", value-id: "ohbidmffyeodcth4fqhlfrlfeg5c3j7w56zzfxltqjob6vtyi3owa")\;
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "oibi3kxnrjndmkoojp7lfep4bscecl5b2qoriz7ra333g77vxdzia")\;
