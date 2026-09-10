@@ -10,9 +10,6 @@ MSVC on Windows, and the Lua **scriptmodules** (build rules) that drive them.
 
 ## Toolchain discovery
 
-DRAFT, awaiting the maintainer's schema review (dksdk-coder
-`plans/toolchain/SCHEMA-REVIEW.md`).
-
 The `CommonsBase_Build.Toolchain.Discover.*` objects supply system-toolchain
 discovery probes. A probe runs at execution time inside a consuming form
 command, emits UTF-8 LF `KEY=VALUE` lines on stdout, and exits nonzero with
