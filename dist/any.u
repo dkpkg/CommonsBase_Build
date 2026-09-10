@@ -265,3 +265,40 @@ pinned zips.
   $ get-object CommonsBase_Build.Git.MinGit@2.55.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Git.MinGit-2.55.0.zip
   \test(pass)
   \dk.object(abi: "Release.Windows_arm64", value-id: "ohfdxbl7oystrglbp3lpduqxptd42e5ddagwj7rs3bx24p2qcvslq")\;
+
+## CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0
+
+MSVC toolchain discovery probe `bin/discover.bat`, copied from the
+`CommonsBase_Build.Apparatus.ToolchainDiscover@0.1.0` asset, Windows slots only.
+
+  $ get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.Windows_x86_64 -f ${RUNTIME}/Windows_x86_64-Toolchain.Discover.MSVC-1.0.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_x86_64", value-id: "ooksmbvvs7gwkwdcyqbfpul33gasjuamvllvjo2r3aulzxqn4smfa")\;
+  $ get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.Windows_x86 -f ${RUNTIME}/Windows_x86-Toolchain.Discover.MSVC-1.0.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_x86", value-id: "oemwxule77tg56amz4t2xsyjwqjc5sqnwbryimrjf2ozvgwl3hy7q")\;
+  $ get-object CommonsBase_Build.Toolchain.Discover.MSVC@1.0.0 -s Release.Windows_arm64 -f ${RUNTIME}/Windows_arm64-Toolchain.Discover.MSVC-1.0.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Windows_arm64", value-id: "oxkvqdyqqkckzixie4no4qcww4xnt2nk5s7mdo6igqnbip7gsfxlq")\;
+
+## CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0
+
+C and glibc toolchain discovery probe `bin/discover.sh`, copied from the
+`CommonsBase_Build.Apparatus.ToolchainDiscover@0.1.0` asset, Linux and Darwin
+slots only.
+
+  $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Linux_x86_64 -f ${RUNTIME}/Linux_x86_64-Toolchain.Discover.CGlibc-1.0.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Linux_x86_64", value-id: "oe7dmxtsno2tpawkvnjzjipdwodgnpivq4drxhzzq4lsg5qtlwqra")\;
+  $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Linux_x86 -f ${RUNTIME}/Linux_x86-Toolchain.Discover.CGlibc-1.0.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Linux_x86", value-id: "oknuyrdqfc7wxfuzo7fag6wo67uhudvg73rlsyursa2qi7rl2vasq")\;
+  $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Linux_arm64 -f ${RUNTIME}/Linux_arm64-Toolchain.Discover.CGlibc-1.0.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Linux_arm64", value-id: "ornywcjsnickrz5ihkprqcdsxm36qmtt5dsuy7t3tmwar4pahbaya")\;
+  $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Darwin_x86_64 -f ${RUNTIME}/Darwin_x86_64-Toolchain.Discover.CGlibc-1.0.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Darwin_x86_64", value-id: "oxtqvbjzqrrrkq6cogsb6daux34rtsm2trcp6frpjtrfz3tcxigoq")\;
+  $ get-object CommonsBase_Build.Toolchain.Discover.CGlibc@1.0.0 -s Release.Darwin_arm64 -f ${RUNTIME}/Darwin_arm64-Toolchain.Discover.CGlibc-1.0.0.zip
+  \test(pass)
+  \dk.object(abi: "Release.Darwin_arm64", value-id: "ohbidmffyeodcth4fqhlfrlfeg5c3j7w56zzfxltqjob6vtyi3owa")\;
