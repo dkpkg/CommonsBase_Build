@@ -87,45 +87,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## workspace
   %% actual_version("2.4.3.9")
   'actual_version'
-  '2.4.2.279'
+  '2.4.3.9'
 
   %% import { type="github-l2", repo="dkpkg/CommonsBase_Std" }
-  'import'
-  'github-l2'
-  { {
-      'CommonsBase_Std', '2.6.20260718222208', {
-        'blake2b-256:d28c9e22c422e6c8ab4083eb1be597292dec46276de308106f0798633b82fc20',
-        'sha256:ec03493d6f73aa962b9df0be8ccf19be607c7cd28bb89aa2d1de3a882ad33024',
-        'sha1:c6eef19dd6c1fdd133c4e4ced6c545e08af628f4'
-      } } }
+  \dk.import(type: "github-l2", library: "CommonsBase_Std",
+    version: "2.6.20260913085659",
+    checksum: (blake2b-256: "8d601ad9945d5aae4afaa980e922f6d7bcb32a4effd0e3c12d03bf6c3b98839d",
+      sha256: "25224920a4b704b3693afe5343ce05c5cd2c0d9e19ce1641511707fb5af59887",
+      sha1: "f7dab451a2d2860aff9bdff09530b6de464255aa"))\;
 
   %% import { type="github-l2", repo="dkpkg/CommonsBase_Std" }
-  'import'
-  'github-l2'
-  { {
-      'CommonsBase_Std', '2.6.20260718222208', {
-        'blake2b-256:d28c9e22c422e6c8ab4083eb1be597292dec46276de308106f0798633b82fc20',
-        'sha256:ec03493d6f73aa962b9df0be8ccf19be607c7cd28bb89aa2d1de3a882ad33024',
-        'sha1:c6eef19dd6c1fdd133c4e4ced6c545e08af628f4'
-      } } }
+  \dk.import(type: "github-l2", library: "CommonsBase_Std",
+    version: "2.6.20260913085659",
+    checksum: (blake2b-256: "8d601ad9945d5aae4afaa980e922f6d7bcb32a4effd0e3c12d03bf6c3b98839d",
+      sha256: "25224920a4b704b3693afe5343ce05c5cd2c0d9e19ce1641511707fb5af59887",
+      sha1: "f7dab451a2d2860aff9bdff09530b6de464255aa"))\;
 
 ## Assets
 
 ### CommonsBase_Build.Apparatus@0.1.0
 
   % unified.asset { name="HelloWorld", dir="dist/hw" }
-  'asset'
-  '790'
-  { 'sha256:847c39531962e987ba69983babf15f244735f3d566d4fdcaa9a94c038484415d' }
+  \dk.asset(byteSize: "790", checksum: (sha256: "847c39531962e987ba69983babf15f244735f3d566d4fdcaa9a94c038484415d"))\;
   % unified.asset { name="LookupCMake3_25_3", dir="dist/lookup-cmake-3-25-3" }
-  'asset'
-  '1492'
-  { 'sha256:086addb0c98ad7d7ca691e33cd7ba3ac405990d928f0377c373d6a115d685bdf' }
+  \dk.asset(byteSize: "1492", checksum: (sha256: "086addb0c98ad7d7ca691e33cd7ba3ac405990d928f0377c373d6a115d685bdf"))\;
   % unified.asset { name="LookupCMakeBin", dir="dist/lookup-cmake-bin" }
-  'asset'
-  '1350'
-  { 'sha256:2775a40cc3860fd3850a50797372a894c7eca1bf14e1be90024dbce2236b3a84' }
+  \dk.asset(byteSize: "1350", checksum: (sha256: "2775a40cc3860fd3850a50797372a894c7eca1bf14e1be90024dbce2236b3a84"))\;
   % unified.asset { name="ToolchainDiscover", dir="assets/dkt" }
-  'asset'
-  '6470'
-  { 'sha256:412514e1fcdd3fccad1a4fd3dae948151540567ad6aa94ef2897f58f1de0b41e' }
+  \dk.asset(byteSize: "6470", checksum: (sha256: "412514e1fcdd3fccad1a4fd3dae948151540567ad6aa94ef2897f58f1de0b41e"))\;
